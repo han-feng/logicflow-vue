@@ -1,0 +1,41 @@
+{
+  "name": "logicflow-useapi",
+  "version": "0.1.0",
+  "description": "Logic Flow Vue use API",
+  "license": "MIT",
+  "main": "dist/logicflow-useapi.umd.js",
+  "module": "dist/logicflow-useapi.es.js",
+  "types": "dist/*.d.ts",
+  "files": [
+    "dist/*.js",
+    "dist/*.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/han-feng/logicflow-vue.git"
+  },
+  "keywords": [
+    "LogicFlow",
+    "Vue 3",
+    "Use API",
+    "Composition API"
+  ],
+  "scripts": {
+    "all": "pnpm clean && pnpm build",
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
+    "clean": "rimraf dist",
+    "clean:all": "rimraf node_modules dist"
+  },
+  "dependencies": {
+    "@logicflow/core": "^1.1.14",
+    "vue": "^3.2.33"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.25",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.5",
+    "vite-plugin-dts": "^1.1.0",
+    "vue-tsc": "^0.34.9"
+  }
+}

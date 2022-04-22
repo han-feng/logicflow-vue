@@ -1,0 +1,15 @@
+{
+  "name": "logicflow-vue",
+  "version": "0.1.0",
+  "description": "Logic Flow Vue",
+  "private": true,
+  "scripts": {
+    "all": "pnpm -r all",
+    "build": "pnpm -r build",
+    "clean": "pnpm -r clean",
+    "clean:all": "pnpm -r clean:all && rimraf pnpm-lock.yaml node_modules"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
+}
