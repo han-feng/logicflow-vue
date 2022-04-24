@@ -178,6 +178,19 @@ export function usePropertiesPanelContext(): Record<string, any> {
     text: '',
     properties: {},
   })
+  const changedId = () => {
+    // TODO 引入校验规则，检查 id 是否合法，并且便于 Form 表单中使用
+    const oldId = ctx?.selectedModel?.id
+    let newId = element.id
+    if (!oldId) return
+    if (ctx?.selectedModel?.BaseType == 'node') newId = ctx?.lf?.changeNodeId<string>(oldId, newId) || ''
+    else if (ctx?.selectedModel?.BaseType == 'edge') newId = ctx?.lf?.changeEdgeId(oldId, newId) || ''
+    // else 'graph'
+    if (!newId || newId == '') {
+      // 修改失败，重新加载数据
+      loadData()
+    }
+  }
 
   const _stopHandles: any[] = []
   let _subscribedTextEvent = false
@@ -188,7 +201,7 @@ export function usePropertiesPanelContext(): Record<string, any> {
       element.text = ctx?.selectedModel?.text?.value || ''
     }
   }
-  function loadData() {
+  const loadData = () => {
     if (_subscribedTextEvent) ctx?.lf?.off('text:update', _textUpdateCallback)
 
     _stopHandles.forEach(h => h())
@@ -211,7 +224,8 @@ export function usePropertiesPanelContext(): Record<string, any> {
       watch(
         () => element.id,
         (newVal, oldVal) => {
-          console.log('id changed:', oldVal, '->', newVal)
+          // console.log('id changed:', oldVal, '->', newVal)
+          changedId()
         }),
       watch(
         () => element.text,
