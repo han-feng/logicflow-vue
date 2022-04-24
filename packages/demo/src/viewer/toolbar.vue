@@ -36,7 +36,7 @@
           </a-button>
         </a-tooltip>
         <a-tooltip title="自适应大小">
-          <a-button @click="fitView">
+          <a-button @click="fitView(100)">
             <template #icon>
               <icon>
                 <template #component>

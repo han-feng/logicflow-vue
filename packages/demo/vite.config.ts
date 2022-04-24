@@ -1,8 +1,9 @@
-import vue from '@vitejs/plugin-vue';
-import visualizer from "rollup-plugin-visualizer";
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
-import Components from 'unplugin-vue-components/vite';
-import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
+import visualizer from "rollup-plugin-visualizer"
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -24,7 +25,16 @@ export default defineConfig({
       filename: './node_modules/.cache/visualizer/stats.html'
     })
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        viewer: resolve(__dirname, 'viewer.html'),
+        modeler: resolve(__dirname, 'modeler.html')
+      }
+    }
+  },
   server: {
     open: true
   }
-});
+})
