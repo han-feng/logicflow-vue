@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "description": "Logic Flow Vue use API",
   "license": "MIT",
-  "main": "dist/logicflow-useapi.umd.js",
-  "module": "dist/logicflow-useapi.es.js",
-  "types": "dist/*.d.ts",
+  "mail": "dist/logicflow-useapi.js",
+  "unpkg": "dist/logicflow-useapi.js",
+  "module": "dist/logicflow-useapi.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist/*.js",
     "dist/*.ts"
@@ -25,6 +26,10 @@
     "build": "vue-tsc --noEmit --skipLibCheck && vite build",
     "clean": "rimraf dist",
     "clean:all": "rimraf node_modules dist"
+  },
+  "peerDependencies": {
+    "@logicflow/core": "^1.1.14",
+    "vue": "^3.2.33"
   },
   "dependencies": {
     "@logicflow/core": "^1.1.14",

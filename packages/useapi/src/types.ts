@@ -1,5 +1,5 @@
-import { BaseEdgeModel, BaseNodeModel, LogicFlow } from '@logicflow/core';
-import { DefineComponent } from 'vue';
+import { BaseEdgeModel, BaseNodeModel, Definition, LogicFlow } from '@logicflow/core';
+import { DefineComponent, Ref, ShallowReactive } from 'vue';
 
 export type NodeType = {
   type: string
@@ -43,10 +43,38 @@ export type PropertiesPanelConfig = {
   /**
    * 属性面板：key为元素类型，value为元素属性面板组件
    */
-  [key: string]: DefineComponent<{}, {}, any> | undefined
+  [key: string]: DefineComponent<{}, {}, any> | null | undefined
+}
+
+export type PropertiesPanelView = {
+  component?: DefineComponent<{}, {}, any>,
+  collapsed: boolean,
+  disabled: boolean,
+  toggleCollapsed(): void
 }
 
 export type PropertiesPanelContext = {
-  lf: LogicFlow | null
-  selectedModel: BaseNodeModel | BaseEdgeModel | null
+  lf?: LogicFlow
+  selectedModel?: BaseNodeModel | BaseEdgeModel
+}
+
+export type ViewerContext = {
+  lf?: LogicFlow
+  showMiniMap: Ref<boolean>
+  toggleMiniMap(): void
+  zoomOut(): void
+  zoomIn(): void
+  resetZoom(): void
+  fitView(offset: number): void
+  initLogicFlow(logicflowOptions: Definition): void
+  [key: string]: any
+}
+
+export type ModelerContext = ViewerContext & {
+  propertiesPanel: ShallowReactive<PropertiesPanelView>
+  modified: Ref<boolean>
+  undoDisable: Ref<boolean>
+  redoDisable: Ref<boolean>
+  undo(): void
+  redo(): void
 }

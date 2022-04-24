@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "all": "pnpm -r all",
+    "dev": "pnpm -F logicflow-vue-demo dev",
     "build": "pnpm -r build",
+    "preview": "pnpm -F logicflow-vue-demo preview",
     "clean": "pnpm -r clean",
     "clean:all": "pnpm -r clean:all && rimraf pnpm-lock.yaml node_modules"
   },

@@ -1,16 +1,17 @@
 import type { PointTuple } from '@logicflow/core';
 import LogicFlow from '@logicflow/core';
-import { DefineComponent, inject, nextTick, onActivated, onDeactivated, provide, reactive, ref, shallowReactive, shallowRef, watch } from 'vue';
-import { selectIcon } from './icons';
-import type { ModelType, PropertiesPanelConfig, PropertiesPanelContext } from './types';
+import { inject, nextTick, onActivated, onDeactivated, provide, reactive, ref, shallowReactive, watch } from 'vue';
+import type { ModelerContext, ModelType, PropertiesPanelConfig, PropertiesPanelContext, PropertiesPanelView, ViewerContext } from './types';
+
+const selectIcon = 'data:image/svg+xml;base64,PHN2ZyBjbGFzcz0icHJlZml4X19wcmVmaXhfX2ljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj48cGF0aCBkPSJNNTk4LjE4NyA5NTUuNzMzaC0uNDQ0YTE3LjExOCAxNy4xMTggMCAwMS0xNS4yNC0xMC4zMjVMNDc2Ljg2IDY5OS43MzNoLTUwLjE5M2ExNy4wNjcgMTcuMDY3IDAgMTEwLTM0LjEzM2gzNS41MzJMMzI1LjY2NiAzNDguMDc1YTE3LjA2NyAxNy4wNjcgMCAwMTIyLjQwOS0yMi40MDlMNjY1LjYgNDYyLjJ2LTM1LjUzMmExNy4wNjcgMTcuMDY3IDAgMTEzNC4xMzMgMHY1MC4xNTlsMjQ1LjY0IDEwNC44MDZhMTcuMDg0IDE3LjA4NCAwIDAxLjkyMiAzMC45NzZMNzk2LjgxIDY4Ny4zNmwxNTMuOTI0IDE1My45MjRhMTcuMDUgMTcuMDUgMCAwMTAgMjQuMTMzTDg2NS40IDk1MC43NWExNy4wNSAxNy4wNSAwIDAxLTI0LjEzMiAwTDY4Ny40MTEgNzk2Ljg5NGwtNzMuOTMzIDE0OS4zNWExNy4wNjcgMTcuMDY3IDAgMDEtMTUuMjkxIDkuNDl6bTg0LjQ4LTIwNC44YTE3LjA2NyAxNy4wNjcgMCAwMTEyLjA2NiA1bDE1OC42IDE1OC42MDEgNjEuMjAxLTYxLjItMTU4LjYtMTU4LjYwMWExNy4wMTUgMTcuMDE1IDAgMDE0LjQzNy0yNy4zMjRsMTM3LjY3Ny02OC44My0yMjIuMDM3LTk0LjczNy0uMTAzLS4wMzQtMzAxLjk3Ny0xMjkuODc3IDEyOS44NiAzMDEuOTk0LjAzNC4wNjkgOTUuNDU0IDIyMi4wMiA2OC4wOTYtMTM3LjU3NWExNy4wNjcgMTcuMDY3IDAgMDExNS4yOTItOS41MDZ6bS0zNDEuMzM0LTUxLjJIMjU2YTE3LjA2NyAxNy4wNjcgMCAxMTAtMzQuMTMzaDg1LjMzM2ExNy4wNjcgMTcuMDY3IDAgMTEwIDM0LjEzM3ptLTE3MC42NjYgMEg4NS4zMzNhMTcuMDY3IDE3LjA2NyAwIDAxLTE3LjA2Ni0xNy4wNjZ2LTg1LjMzNGExNy4wNjcgMTcuMDY3IDAgMTEzNC4xMzMgMFY2NjUuNmg2OC4yNjdhMTcuMDY3IDE3LjA2NyAwIDExMCAzNC4xMzN6TTg1LjMzMyA1MjkuMDY3QTE3LjA2NyAxNy4wNjcgMCAwMTY4LjI2NyA1MTJ2LTg1LjMzM2ExNy4wNjcgMTcuMDY3IDAgMDEzNC4xMzMgMFY1MTJhMTcuMDY3IDE3LjA2NyAwIDAxLTE3LjA2NyAxNy4wNjd6TTY4Mi42NjcgMzU4LjRhMTcuMDY3IDE3LjA2NyAwIDAxLTE3LjA2Ny0xNy4wNjdWMjU2YTE3LjA2NyAxNy4wNjcgMCAxMTM0LjEzMyAwdjg1LjMzM2ExNy4wNjcgMTcuMDY3IDAgMDEtMTcuMDY2IDE3LjA2N3ptLTU5Ny4zMzQgMGExNy4wNjcgMTcuMDY3IDAgMDEtMTcuMDY2LTE3LjA2N1YyNTZhMTcuMDY3IDE3LjA2NyAwIDAxMzQuMTMzIDB2ODUuMzMzQTE3LjA2NyAxNy4wNjcgMCAwMTg1LjMzMyAzNTguNHptNTk3LjMzNC0xNzAuNjY3YTE3LjA2NyAxNy4wNjcgMCAwMS0xNy4wNjctMTcuMDY2VjEwMi40aC02OC4yNjdhMTcuMDY3IDE3LjA2NyAwIDExMC0zNC4xMzNoODUuMzM0YTE3LjA2NyAxNy4wNjcgMCAwMTE3LjA2NiAxNy4wNjZ2ODUuMzM0YTE3LjA2NyAxNy4wNjcgMCAwMS0xNy4wNjYgMTcuMDY2em0tNTk3LjMzNCAwYTE3LjA2NyAxNy4wNjcgMCAwMS0xNy4wNjYtMTcuMDY2Vjg1LjMzM2ExNy4wNjcgMTcuMDY3IDAgMDExNy4wNjYtMTcuMDY2aDg1LjMzNGExNy4wNjcgMTcuMDY3IDAgMDEwIDM0LjEzM0gxMDIuNHY2OC4yNjdhMTcuMDY3IDE3LjA2NyAwIDAxLTE3LjA2NyAxNy4wNjZ6TTUxMiAxMDIuNGgtODUuMzMzYTE3LjA2NyAxNy4wNjcgMCAwMTAtMzQuMTMzSDUxMmExNy4wNjcgMTcuMDY3IDAgMTEwIDM0LjEzM3ptLTE3MC42NjcgMEgyNTZhMTcuMDY3IDE3LjA2NyAwIDAxMC0zNC4xMzNoODUuMzMzYTE3LjA2NyAxNy4wNjcgMCAwMTAgMzQuMTMzeiIvPjwvc3ZnPg=='
 
 /**
  * 使用看图工具
  * 注意：对该函数返回值中的 lf 属性，请不要解构后使用
  */
-export function useViewer(model: ModelType): Record<string, any> {
+export function useViewer(model: ModelType): ViewerContext {
 
-  const viewer = { lf: null as LogicFlow | null }
+  const viewer: { lf?: LogicFlow } = {}
 
   // miniMap
   const showMiniMap = ref(false)
@@ -36,8 +37,8 @@ export function useViewer(model: ModelType): Record<string, any> {
     viewer.lf?.resetZoom();
     viewer.lf?.resetTranslate();
   }
-  const fitView = () => {
-    viewer.lf?.fitView(100);
+  const fitView = (offset: number) => {
+    viewer.lf?.fitView(offset);
   }
   // logicflow
   const initLogicFlow = (logicflowOptions: any) => {
@@ -79,15 +80,20 @@ export function useViewer(model: ModelType): Record<string, any> {
  * 注意：对该函数返回值中的 lf 属性，请不要解构后使用
  */
 export function useModeler(model: ModelType, propertiesPanelConfig: PropertiesPanelConfig)
-  : Record<string, any> {
+  : ModelerContext {
   const modeler = useViewer(model)
-  modeler.propertiesPanel = shallowRef<DefineComponent<{}, {}, any> | null>(null)
 
-  const _ctx = shallowReactive<PropertiesPanelContext>({
-    lf: null,
-    selectedModel: null
-  })
+  const _ctx = shallowReactive<PropertiesPanelContext>({})
   provide('properties_panel_context', _ctx) // 提供属性面板上下文
+
+  // propertiesPanel
+  const propertiesPanel = shallowReactive<PropertiesPanelView>({
+    collapsed: !propertiesPanelConfig,
+    disabled: !propertiesPanelConfig,
+    toggleCollapsed: () => {
+      propertiesPanel.collapsed = !propertiesPanel.collapsed
+    }
+  })
 
   // modified
   const modified = ref(false)
@@ -102,57 +108,49 @@ export function useModeler(model: ModelType, propertiesPanelConfig: PropertiesPa
     redoDisable.value = !redoAble
   }
   const undo = () => {
-    modeler.lf.undo()
+    modeler.lf?.undo()
   }
   const redo = () => {
-    modeler.lf.redo()
+    modeler.lf?.redo()
   }
-  // propertiesPanel
-  const propertiesPanel = shallowReactive({
-    component: null,
-    collapsed: !propertiesPanelConfig,
-    disabled: !propertiesPanelConfig,
-    toggleCollapsed: () => {
-      propertiesPanel.collapsed = !propertiesPanel.collapsed
-    }
-  })
+
 
   const _initModeler = () => {
     _ctx.lf = modeler.lf
-    modeler.lf.setPatternItems([
+    modeler.lf?.setPatternItems([
       {
         label: '框选',
         icon: selectIcon,
         callback: () => {
-          modeler.lf.extension.selectionSelect.openSelectionSelect();
-          modeler.lf.once('selection:selected', () => {
-            modeler.lf.extension.selectionSelect.closeSelectionSelect();
+          modeler.lf?.extension.selectionSelect.openSelectionSelect();
+          modeler.lf?.once('selection:selected', () => {
+            modeler.lf?.extension.selectionSelect.closeSelectionSelect();
           });
         }
       },
       ...model.nodeTypes
     ])
 
-    modeler.lf.on('history:change', ({ data }: any) => {
+    modeler.lf?.on('history:change', ({ data }: any) => {
       setUndoState(data)
       setModified(true)
     })
     if (propertiesPanelConfig) {
-      modeler.lf.on('node:click,edge:click,blank:click',
+      modeler.lf?.on('node:click,edge:click,blank:click',
         async ({ data }: any) => {
           // console.log('click', data)
           if (data) {
             if (_ctx.selectedModel?.id == data.id) return
-            modeler.propertiesPanel.component = propertiesPanelConfig[data.type] || propertiesPanelConfig.default
+            propertiesPanel.component = propertiesPanelConfig[data.type] || propertiesPanelConfig.default
             await nextTick()  // 为了确保先激活 Panel 再改变数据，此处 nextTick() 的位置不要随便调整
-            _ctx.selectedModel = modeler.lf.getModelById(data.id)
+            _ctx.selectedModel = modeler.lf?.getModelById(data.id)
           } else {
-            modeler.propertiesPanel.component = propertiesPanelConfig.top || propertiesPanelConfig.default
+            propertiesPanel.component = propertiesPanelConfig.top || propertiesPanelConfig.default
             await nextTick()  // 为了确保先激活 Panel 再改变数据，此处 nextTick() 的位置不要随便调整
-            _ctx.selectedModel = null
+            _ctx.selectedModel = undefined
           }
         })
-      modeler.propertiesPanel.component = propertiesPanelConfig.top || propertiesPanelConfig.default
+      propertiesPanel.component = propertiesPanelConfig.top || propertiesPanelConfig.default
     }
   }
 
@@ -240,3 +238,6 @@ export function usePropertiesPanelContext(): Record<string, any> {
 
   return element
 }
+
+export * from './types';
+
