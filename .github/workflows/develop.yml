@@ -1,0 +1,34 @@
+name: develop CI
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v3
+      - name: 🛠 Setup pnpm
+        uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 7.0.0-rc.8
+      - name: 🐝 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: "pnpm"
+      - name: 🏗 Install dependencies
+        run: pnpm install
+      - name: 🏭 Build
+        run: pnpm all
+      - name: 🚀 Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: gh-pages
+          folder: packages/demo/dist
+          token: ${{ secrets.ACCESS_TOKEN }}
+          clean: true

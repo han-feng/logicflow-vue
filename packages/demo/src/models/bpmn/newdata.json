@@ -1,0 +1,109 @@
+{
+  "nodes": [
+    {
+      "id": "Event_0vu9f9k",
+      "type": "bpmn:startEvent",
+      "x": 250,
+      "y": 130,
+      "properties": {}
+    },
+    {
+      "id": "Event_23njbc0",
+      "type": "bpmn:endEvent",
+      "x": 781,
+      "y": 130,
+      "properties": {}
+    },
+    {
+      "id": "Activity_0fiu8id",
+      "type": "bpmn:userTask",
+      "x": 410,
+      "y": 130,
+      "properties": {}
+    },
+    {
+      "id": "Activity_1t0d2vr",
+      "type": "bpmn:serviceTask",
+      "x": 610,
+      "y": 130,
+      "properties": {}
+    }
+  ],
+  "edges": [
+    {
+      "id": "Flow_10c8bo7",
+      "type": "bpmn:sequenceFlow",
+      "sourceNodeId": "Event_0vu9f9k",
+      "targetNodeId": "Activity_0fiu8id",
+      "startPoint": {
+        "x": 268,
+        "y": 130
+      },
+      "endPoint": {
+        "x": 360,
+        "y": 130
+      },
+      "properties": {},
+      "pointsList": [
+        {
+          "x": 268,
+          "y": 130
+        },
+        {
+          "x": 360,
+          "y": 130
+        }
+      ]
+    },
+    {
+      "id": "Flow_3gtob6a",
+      "type": "bpmn:sequenceFlow",
+      "sourceNodeId": "Activity_0fiu8id",
+      "targetNodeId": "Activity_1t0d2vr",
+      "startPoint": {
+        "x": 460,
+        "y": 130
+      },
+      "endPoint": {
+        "x": 560,
+        "y": 130
+      },
+      "properties": {},
+      "pointsList": [
+        {
+          "x": 460,
+          "y": 130
+        },
+        {
+          "x": 560,
+          "y": 130
+        }
+      ]
+    },
+    {
+      "id": "Flow_0fvq0tq",
+      "type": "bpmn:sequenceFlow",
+      "sourceNodeId": "Activity_1t0d2vr",
+      "targetNodeId": "Event_23njbc0",
+      "startPoint": {
+        "x": 660,
+        "y": 130
+      },
+      "endPoint": {
+        "x": 763,
+        "y": 130
+      },
+      "properties": {},
+      "pointsList": [
+        {
+          "x": 660,
+          "y": 130
+        },
+        {
+          "x": 763,
+          "y": 130
+        }
+      ]
+    }
+  ]
+}
