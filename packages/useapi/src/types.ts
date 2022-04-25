@@ -58,6 +58,13 @@ export type PropertiesPanelContext = {
   selectedModel?: BaseNodeModel | BaseEdgeModel
 }
 
+export type PropertiesPanelData = {
+  id: string,
+  type: string,
+  text: string,
+  properties: Record<string, any>,
+}
+
 export type ViewerContext = {
   lf?: LogicFlow
   showMiniMap: Ref<boolean>
