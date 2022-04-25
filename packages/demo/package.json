@@ -6,7 +6,7 @@
   "scripts": {
     "all": "pnpm clean && pnpm build",
     "dev": "vite",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "clean": "rimraf dist",
     "clean:all": "rimraf node_modules dist"

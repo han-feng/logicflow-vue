@@ -4,7 +4,6 @@
   "description": "Logic Flow Vue use API",
   "license": "MIT",
   "mail": "dist/logicflow-useapi.js",
-  "unpkg": "dist/logicflow-useapi.js",
   "module": "dist/logicflow-useapi.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -13,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/han-feng/logicflow-vue.git"
+    "url": "https://github.com/han-feng/logicflow-vue/tree/main/packages/useapi"
   },
   "keywords": [
     "LogicFlow",
@@ -23,7 +22,7 @@
   ],
   "scripts": {
     "all": "pnpm clean && pnpm build",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "clean": "rimraf dist",
     "clean:all": "rimraf node_modules dist"
   },

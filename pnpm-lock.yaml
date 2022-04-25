@@ -37,7 +37,7 @@ importers:
       logicflow-useapi: link:../useapi
       vue: 3.2.33
     devDependencies:
-      '@types/node': 17.0.25
+      '@types/node': 17.0.26
       '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
       rimraf: 3.0.2
       rollup: 2.70.2
@@ -61,7 +61,7 @@ importers:
       '@logicflow/core': 1.1.14
       vue: 3.2.33
     devDependencies:
-      '@types/node': 17.0.25
+      '@types/node': 17.0.26
       rimraf: 3.0.2
       typescript: 4.6.3
       vite: 2.9.5
@@ -263,8 +263,8 @@ packages:
     resolution: {integrity: sha512-yxDeaQIAJlMav7fH5AQqPH1u8YIuhYJXYBzxaQ4PifsU0GDO38MSdmEDeRlIxrKbC6NbEaaEHDanWb+y30U8SQ==}
     dev: true
 
-  /@types/node/17.0.25:
-    resolution: {integrity: sha512-wANk6fBrUwdpY4isjWrKTufkrXdu1D2YHCot2fD/DfWxF5sMrVSA+KN7ydckvaTCh0HiqX9IVl0L5/ZoXg5M7w==}
+  /@types/node/17.0.26:
+    resolution: {integrity: sha512-z/FG/6DUO7pnze3AE3TBGIjGGKkvCcGcWINe1C7cADY8hKLJPDYpzsNE37uExQ4md5RFtTCvg+M8Mu1Enyeg2A==}
     dev: true
 
   /@vitejs/plugin-vue/2.3.1_vite@2.9.5+vue@3.2.33:
@@ -416,7 +416,7 @@ packages:
       '@ctrl/tinycolor': 3.4.1
       '@simonwep/pickr': 1.8.2
       array-tree-filter: 2.1.0
-      async-validator: 4.0.7
+      async-validator: 4.0.8
       dayjs: 1.11.1
       dom-align: 1.12.2
       dom-scroll-into-view: 2.0.1
@@ -448,8 +448,8 @@ packages:
     resolution: {integrity: sha512-4ROwICNlNw/Hqa9v+rk5h22KjmzB1JGTMVKP2AKJBOCgb0yL0ASf0+YvCcLNNwquOHNX48jkeZIJ3a+oOQqKcw==}
     dev: false
 
-  /async-validator/4.0.7:
-    resolution: {integrity: sha512-Pj2IR7u8hmUEDOwB++su6baaRi+QvsgajuFB9j95foM1N2gy5HM4z60hfusIO0fBPG5uLAEl6yCJr1jNSVugEQ==}
+  /async-validator/4.0.8:
+    resolution: {integrity: sha512-vx1kyOCuSJqB5IVatlybUkV/e22sdx+V0XohCWbBfbbzbiLFt6fHxfWg6UEBhFw0gVgZtaSLTJtugmP4rdGQAQ==}
     dev: false
 
   /balanced-match/1.0.2:

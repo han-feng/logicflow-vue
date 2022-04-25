@@ -5,9 +5,7 @@ import dts from 'vite-plugin-dts'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    dts({
-      exclude: 'src/icons.ts'
-    })
+    dts()
   ],
   build: {
     lib: {
