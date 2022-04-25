@@ -28,8 +28,8 @@
     "clean:all": "rimraf node_modules dist"
   },
   "peerDependencies": {
-    "@logicflow/core": "^1.1.14",
-    "vue": "^3.2.33"
+    "@logicflow/core": ">=1.1.10",
+    "vue": ">=3.2.0"
   },
   "dependencies": {
     "@logicflow/core": "^1.1.14",
@@ -41,6 +41,6 @@
     "typescript": "^4.6.3",
     "vite": "^2.9.5",
     "vite-plugin-dts": "^1.1.0",
-    "vue-tsc": "^0.34.9"
+    "vue-tsc": "^0.34.10"
   }
 }

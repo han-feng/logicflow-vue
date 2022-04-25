@@ -3,12 +3,13 @@ import { resolve } from 'path'
 import visualizer from "rollup-plugin-visualizer"
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    splitVendorChunkPlugin(),
     Components({
       // Vue 组件自动按需导入
       resolvers: [
