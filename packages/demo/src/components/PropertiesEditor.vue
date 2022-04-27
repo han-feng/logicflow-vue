@@ -28,6 +28,7 @@ type Property = {
   newKey: string
   value: string
   newValue: string
+  [key: string]: string | boolean
 }
 
 const ids = new Ids([32, 32, 1]);
@@ -36,19 +37,27 @@ function getTempId() {
 }
 
 const copy = (source: Record<string, string>, target: Property[]) => {
+  target.forEach(item => item.del = true)
   Object.keys(source).forEach((key) => {
     const p = target.find(item => item.key === key)
     if (p) {
       p.value = source[key]
+      p.del = false
     } else {
       target.push({
         key,
         newKey: key.startsWith('__') ? '' : key,
         value: source[key],
         newValue: source[key],
+        del: false
       })
     }
   })
+  // 删除多余的元素
+  let len = target.length
+  for (let i = 0; i < len; i++) {
+    if (target[i].del) target.splice(i, 1), i--, len--
+  }
   return target
 }
 </script>
