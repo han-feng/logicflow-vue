@@ -1,10 +1,11 @@
 <template>
-  <a-row v-for="(data,index) in properties">
+  <a-row v-for="(data) in properties">
     <a-input-group compact>
       <a-select mode="SECRET_COMBOBOX_MODE_DO_NOT_USE" :dropdownMatchSelectWidth="false" size="small"
-        v-model:value="data[0]" :options="options" style="width:calc(50% - 12px)"></a-select>
-      <a-input v-model:value="data[1]" size="small" style="width:calc(50% - 12px)" />
-      <a-button type="text" size="small" @click="delProp(index)">
+        v-model:value="data.newKey" :options="options" @change="changeKey(data)" style="width:calc(50% - 12px)">
+      </a-select>
+      <a-input v-model:value="data.newValue" @change="changeValue(data)" size="small" style="width:calc(50% - 12px)" />
+      <a-button type="text" size="small" @click="delProp(data.key)">
         <template #icon>
           <close-outlined />
         </template>
@@ -19,27 +20,40 @@
 </template>
 
 <script lang="ts">
-type addLog = {
-  // index: number 暂不考虑新增记录位置，全部添加到最后
+import Ids from 'ids';
+import { reactive, watch } from 'vue';
+
+type Property = {
   key: string
+  newKey: string
   value: string
+  newValue: string
 }
 
-type updateLog = {
-  key: string
-  value: string
+const ids = new Ids([32, 32, 1]);
+function getTempId() {
+  return '__' + ids.next();
 }
 
-type ChangeSet = {
-  adds: addLog[]
-  updates: Record<string, updateLog>
+const copy = (source: Record<string, string>, target: Property[]) => {
+  Object.keys(source).forEach((key) => {
+    const p = target.find(item => item.key === key)
+    if (p) {
+      p.value = source[key]
+    } else {
+      target.push({
+        key,
+        newKey: key.startsWith('__') ? '' : key,
+        value: source[key],
+        newValue: source[key],
+      })
+    }
+  })
+  return target
 }
-
 </script>
 
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
-
 const props = defineProps<{
   value: Record<string, string>
 }>()
@@ -50,50 +64,50 @@ const options = [
   { label: '属性3（key3）', value: 'key3' },
 ]
 
-const changeset = reactive<ChangeSet>({
-  adds: [],
-  updates: {}
-})
+const properties = reactive<Property[]>(copy(props.value, []))
 
-const properties = computed(() => {
-  const datas = <[string, string, number, addLog | updateLog | null][]>([])
-  const value = props.value
-  let log: updateLog | null
-  let type: number
-  Object.keys(value).forEach((key) => {
-    log = changeset.updates[key] || null
-    type = log ? 2 : 0
-    datas.push([key, value[key], type, log])
-  })
-  changeset.adds.forEach((addlog) => {
-    datas.push([addlog.key, addlog.value, 1, addlog])
-  })
-  return datas
-})
+watch(
+  () => props.value,
+  (newVal, oldVal) => {
+    console.log(newVal, '->', oldVal)
+    copy(newVal, properties)
+  },
+  { deep: true }
+)
 
 function addProp() {
-  changeset.adds.push({
-    // index: properties.value.length,
-    key: '',
-    value: ''
-  })
+  props.value[getTempId()] = ''
 }
 
-function delProp(index: number) {
-  const key = properties.value[index][0]
-  const type = properties.value[index][2]
-  const log = properties.value[index][3]
-  switch (type) {
-    case 2: // 待更新数据，先删除变更记录，然后删源
-      delete changeset.updates[key]
-    case 0: // 原始数据，直接删源
-      delete props.value[key]
-      break
-    case 1: // 待新增数据，删除新增
-      if (log) changeset.adds.splice(changeset.adds.indexOf(log), 1)
-      break
-    default:
+function delProp(key: string) {
+  properties.splice(properties.findIndex(item => item.key === key), 1)
+  delete props.value[key]
+}
+
+function changeKey(data: Property) {
+  if (data.key === data.newKey) return
+  // Key 校验
+  // TODO 使用 Form 校验规则及错误提示
+  const newKey = data.newKey
+  if (newKey.startsWith('__')) {
+    console.log('key 不能以 __ 开头')
+    return
   }
+  if (properties.find(item => item.key === newKey)) {
+    console.log('存在重复的 key')
+    return
+  }
+  console.log('changeKey', data)
+  const oldKey = data.key
+  data.key = newKey
+  props.value[newKey] = data.value
+  delete props.value[oldKey]
 }
 
+function changeValue(data: Property) {
+  if (data.value === data.newValue) return
+  console.log('changeValue', data)
+  // data.value = data.newValue // 不用修改，会触发 watch 自动更新
+  props.value[data.key] = data.newValue
+}
 </script>

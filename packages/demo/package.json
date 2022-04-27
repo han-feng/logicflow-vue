@@ -18,6 +18,7 @@
     "@logicflow/extension": "^1.1.14",
     "ant-design-vue": "3.2.2",
     "highlight.js": "^11.5.1",
+    "ids": "^1.0.0",
     "logicflow-useapi": "workspace:^0.1.0",
     "vue": "^3.2.33"
   },

@@ -18,6 +18,7 @@ importers:
       '@vitejs/plugin-vue': ^2.3.1
       ant-design-vue: 3.2.2
       highlight.js: ^11.5.1
+      ids: ^1.0.0
       logicflow-useapi: workspace:^0.1.0
       rimraf: ^3.0.2
       rollup: ^2.70.2
@@ -34,6 +35,7 @@ importers:
       '@logicflow/extension': 1.1.14
       ant-design-vue: 3.2.2_vue@3.2.33
       highlight.js: 11.5.1
+      ids: 1.0.0
       logicflow-useapi: link:../useapi
       vue: 3.2.33
     devDependencies:
