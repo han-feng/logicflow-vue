@@ -7,8 +7,8 @@
     <a-form-item label="文本" name="text">
       <a-textarea v-model:value="data.text" auto-size />
     </a-form-item>
-    <a-form-item label="扩展属性1" :name="['properties', 'test1']">
-      <a-input v-model:value="data.properties.test1" />
+    <a-form-item label="扩展属性" name="properties">
+      <properties-editor :value="data.properties" />
     </a-form-item>
   </a-form>
 </template>

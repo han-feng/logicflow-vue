@@ -10,7 +10,7 @@
         </div>
       </a-layout-content>
       <a-layout-sider v-model:collapsed="propertiesPanel.collapsed" collapsible collapsedWidth="0" theme="light"
-        width="240px" style="background-color: #f8f8f8;border: 1px solid #ccc">
+        width="240px" style="background-color: #f8f8f8;border: 1px solid #ccc;overflow-x: hidden;overflow-y: auto;">
         <keep-alive>
           <component :is="propertiesPanel.component"></component>
         </keep-alive>

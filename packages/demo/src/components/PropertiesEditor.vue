@@ -2,9 +2,9 @@
   <a-row v-for="(data) in properties">
     <a-input-group compact>
       <a-select mode="SECRET_COMBOBOX_MODE_DO_NOT_USE" :dropdownMatchSelectWidth="false" size="small"
-        v-model:value="data.newKey" :options="options" @change="changeKey(data)" style="width:calc(50% - 12px)">
+        v-model:value="data.newKey" :options="options" @blur="changeKey(data)" style="width:calc(50% - 12px)">
       </a-select>
-      <a-input v-model:value="data.newValue" @change="changeValue(data)" size="small" style="width:calc(50% - 12px)" />
+      <a-input v-model:value="data.newValue" @blur="changeValue(data)" size="small" style="width:calc(50% - 12px)" />
       <a-button type="text" size="small" @click="delProp(data.key)">
         <template #icon>
           <close-outlined />
@@ -20,6 +20,7 @@
 </template>
 
 <script lang="ts">
+import { Form } from 'ant-design-vue';
 import Ids from 'ids';
 import { reactive, watch } from 'vue';
 
@@ -63,14 +64,17 @@ const copy = (source: Record<string, string>, target: Property[]) => {
 </script>
 
 <script setup lang="ts">
+// const formItemContext =
+Form.useInjectFormItemContext()
+
 const props = defineProps<{
   value: Record<string, string>
 }>()
 
-const options = [
-  { label: '属性1（key1）', value: 'key1' },
-  { label: '属性2（key2）', value: 'key2' },
-  { label: '属性3（key3）', value: 'key3' },
+const options: { label: string, value: string }[] = [
+  // { label: '属性1（key1）', value: 'key1' },
+  // { label: '属性2（key2）', value: 'key2' },
+  // { label: '属性3（key3）', value: 'key3' },
 ]
 
 const properties = reactive<Property[]>(copy(props.value, []))
