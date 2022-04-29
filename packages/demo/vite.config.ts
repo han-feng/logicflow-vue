@@ -21,7 +21,7 @@ export default defineConfig({
       dts: "src/components.d.ts"
     }),
     visualizer({
-      open: true,
+      open: false,
       gzipSize: true,
       brotliSize: true,
       filename: './node_modules/.cache/visualizer/stats.html'

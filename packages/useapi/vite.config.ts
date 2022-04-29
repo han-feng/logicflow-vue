@@ -1,11 +1,18 @@
 import { resolve } from 'path'
+import visualizer from "rollup-plugin-visualizer"
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    dts()
+    dts(),
+    visualizer({
+      open: false,
+      gzipSize: true,
+      brotliSize: true,
+      filename: './node_modules/.cache/visualizer/stats.html'
+    })
   ],
   build: {
     lib: {
