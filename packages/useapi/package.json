@@ -24,7 +24,8 @@
     "all": "pnpm clean && pnpm build",
     "build": "vue-tsc --noEmit && vite build",
     "clean": "rimraf dist",
-    "clean:all": "rimraf node_modules dist"
+    "clean:all": "rimraf node_modules dist",
+    "preinstall": "npx only-allow pnpm"
   },
   "peerDependencies": {
     "@logicflow/core": ">=1.1.10",

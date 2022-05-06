@@ -9,24 +9,41 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v3
+
       - name: 🛠 Setup pnpm
-        uses: pnpm/action-setup@v2.1.0
+        uses: pnpm/action-setup@v2
         with:
           version: 7.0.0
+
       - name: 🐝 Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
           cache: "pnpm"
-      - name: 🏗 Install dependencies
+
+      - name: 🏗 Install Dependencies
         run: pnpm install
+
       - name: 🏭 Build
         run: pnpm all
-      - name: 🚀 Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
+
+      # - name: 🩹 Cypress pnpm patch
+      #   run: cp pnpm-lock.yaml package-lock.json
+
+      - name: 📸 E2E Test and Screen Capture
+        uses: cypress-io/github-action@v2
+        with:
+          project: ./packages/demo
+          install: false
+          build: pnpm cypress info
+          start: pnpm preview
+
+      - name: 🚀 Deploy Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: packages/demo/dist
