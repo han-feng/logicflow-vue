@@ -5,6 +5,19 @@ import type { ModelerContext, ModelType, PropertiesPanelConfig, PropertiesPanelC
 
 const selectIcon = 'data:image/svg+xml;base64,PHN2ZyBjbGFzcz0icHJlZml4X19wcmVmaXhfX2ljb24iIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj48cGF0aCBkPSJNNTk4LjE4NyA5NTUuNzMzaC0uNDQ0YTE3LjExOCAxNy4xMTggMCAwMS0xNS4yNC0xMC4zMjVMNDc2Ljg2IDY5OS43MzNoLTUwLjE5M2ExNy4wNjcgMTcuMDY3IDAgMTEwLTM0LjEzM2gzNS41MzJMMzI1LjY2NiAzNDguMDc1YTE3LjA2NyAxNy4wNjcgMCAwMTIyLjQwOS0yMi40MDlMNjY1LjYgNDYyLjJ2LTM1LjUzMmExNy4wNjcgMTcuMDY3IDAgMTEzNC4xMzMgMHY1MC4xNTlsMjQ1LjY0IDEwNC44MDZhMTcuMDg0IDE3LjA4NCAwIDAxLjkyMiAzMC45NzZMNzk2LjgxIDY4Ny4zNmwxNTMuOTI0IDE1My45MjRhMTcuMDUgMTcuMDUgMCAwMTAgMjQuMTMzTDg2NS40IDk1MC43NWExNy4wNSAxNy4wNSAwIDAxLTI0LjEzMiAwTDY4Ny40MTEgNzk2Ljg5NGwtNzMuOTMzIDE0OS4zNWExNy4wNjcgMTcuMDY3IDAgMDEtMTUuMjkxIDkuNDl6bTg0LjQ4LTIwNC44YTE3LjA2NyAxNy4wNjcgMCAwMTEyLjA2NiA1bDE1OC42IDE1OC42MDEgNjEuMjAxLTYxLjItMTU4LjYtMTU4LjYwMWExNy4wMTUgMTcuMDE1IDAgMDE0LjQzNy0yNy4zMjRsMTM3LjY3Ny02OC44My0yMjIuMDM3LTk0LjczNy0uMTAzLS4wMzQtMzAxLjk3Ny0xMjkuODc3IDEyOS44NiAzMDEuOTk0LjAzNC4wNjkgOTUuNDU0IDIyMi4wMiA2OC4wOTYtMTM3LjU3NWExNy4wNjcgMTcuMDY3IDAgMDExNS4yOTItOS41MDZ6bS0zNDEuMzM0LTUxLjJIMjU2YTE3LjA2NyAxNy4wNjcgMCAxMTAtMzQuMTMzaDg1LjMzM2ExNy4wNjcgMTcuMDY3IDAgMTEwIDM0LjEzM3ptLTE3MC42NjYgMEg4NS4zMzNhMTcuMDY3IDE3LjA2NyAwIDAxLTE3LjA2Ni0xNy4wNjZ2LTg1LjMzNGExNy4wNjcgMTcuMDY3IDAgMTEzNC4xMzMgMFY2NjUuNmg2OC4yNjdhMTcuMDY3IDE3LjA2NyAwIDExMCAzNC4xMzN6TTg1LjMzMyA1MjkuMDY3QTE3LjA2NyAxNy4wNjcgMCAwMTY4LjI2NyA1MTJ2LTg1LjMzM2ExNy4wNjcgMTcuMDY3IDAgMDEzNC4xMzMgMFY1MTJhMTcuMDY3IDE3LjA2NyAwIDAxLTE3LjA2NyAxNy4wNjd6TTY4Mi42NjcgMzU4LjRhMTcuMDY3IDE3LjA2NyAwIDAxLTE3LjA2Ny0xNy4wNjdWMjU2YTE3LjA2NyAxNy4wNjcgMCAxMTM0LjEzMyAwdjg1LjMzM2ExNy4wNjcgMTcuMDY3IDAgMDEtMTcuMDY2IDE3LjA2N3ptLTU5Ny4zMzQgMGExNy4wNjcgMTcuMDY3IDAgMDEtMTcuMDY2LTE3LjA2N1YyNTZhMTcuMDY3IDE3LjA2NyAwIDAxMzQuMTMzIDB2ODUuMzMzQTE3LjA2NyAxNy4wNjcgMCAwMTg1LjMzMyAzNTguNHptNTk3LjMzNC0xNzAuNjY3YTE3LjA2NyAxNy4wNjcgMCAwMS0xNy4wNjctMTcuMDY2VjEwMi40aC02OC4yNjdhMTcuMDY3IDE3LjA2NyAwIDExMC0zNC4xMzNoODUuMzM0YTE3LjA2NyAxNy4wNjcgMCAwMTE3LjA2NiAxNy4wNjZ2ODUuMzM0YTE3LjA2NyAxNy4wNjcgMCAwMS0xNy4wNjYgMTcuMDY2em0tNTk3LjMzNCAwYTE3LjA2NyAxNy4wNjcgMCAwMS0xNy4wNjYtMTcuMDY2Vjg1LjMzM2ExNy4wNjcgMTcuMDY3IDAgMDExNy4wNjYtMTcuMDY2aDg1LjMzNGExNy4wNjcgMTcuMDY3IDAgMDEwIDM0LjEzM0gxMDIuNHY2OC4yNjdhMTcuMDY3IDE3LjA2NyAwIDAxLTE3LjA2NyAxNy4wNjZ6TTUxMiAxMDIuNGgtODUuMzMzYTE3LjA2NyAxNy4wNjcgMCAwMTAtMzQuMTMzSDUxMmExNy4wNjcgMTcuMDY3IDAgMTEwIDM0LjEzM3ptLTE3MC42NjcgMEgyNTZhMTcuMDY3IDE3LjA2NyAwIDAxMC0zNC4xMzNoODUuMzMzYTE3LjA2NyAxNy4wNjcgMCAwMTAgMzQuMTMzeiIvPjwvc3ZnPg=='
 
+function download(filename: string, text: string) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
 /**
  * 使用看图工具
  * 注意：对该函数返回值中的 lf 属性，请不要解构后使用
@@ -12,6 +25,24 @@ const selectIcon = 'data:image/svg+xml;base64,PHN2ZyBjbGFzcz0icHJlZml4X19wcmVmaX
 export function useViewer(model: ModelType): ViewerContext {
 
   const viewer: { lf?: LogicFlow } = {}
+
+  // export
+  const exportGraphRawData = (filename: string) => {
+    const text = JSON.stringify(viewer.lf?.getGraphRawData())
+    download(filename, text)
+  }
+
+  const exportGraphData = (filename: string) => {
+    const text = JSON.stringify(viewer.lf?.getGraphData())
+    download(filename, text)
+  }
+
+  const exportPng = (filename: string, backgroundColor: string) => {
+    if (filename && !filename.endsWith('.png')) {
+      filename += '.png'
+    }
+    viewer.lf?.getSnapshot(filename, backgroundColor)
+  }
 
   // miniMap
   const showMiniMap = ref(false)
@@ -70,8 +101,10 @@ export function useViewer(model: ModelType): ViewerContext {
   }
 
   return Object.assign(viewer, {
+    initLogicFlow,
+    exportGraphRawData, exportGraphData, exportPng,
     showMiniMap, toggleMiniMap,
-    zoomOut, zoomIn, resetZoom, fitView, initLogicFlow
+    zoomOut, zoomIn, resetZoom, fitView
   })
 }
 

@@ -67,13 +67,20 @@ export type PropertiesPanelData = {
 
 export type ViewerContext = {
   lf?: LogicFlow
+  initLogicFlow(logicflowOptions: Definition): void
+
+  exportGraphRawData(filename: string): void
+  exportGraphData(filename: string): void
+  exportPng(filename: string, backgroundColor: string): void
+
   showMiniMap: Ref<boolean>
   toggleMiniMap(): void
+
   zoomOut(): void
   zoomIn(): void
   resetZoom(): void
   fitView(offset: number): void
-  initLogicFlow(logicflowOptions: Definition): void
+
   [key: string]: any
 }
 

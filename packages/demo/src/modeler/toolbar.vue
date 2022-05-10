@@ -15,22 +15,43 @@
             <folder-open-outlined />
           </template>
         </a-button>
-        <a-button disabled>
-          <template #icon>
-            <import-outlined />
+        <a-dropdown :trigger="['click']">
+          <template #overlay>
+            <a-menu>
+              <a-menu-item key="json">导入 模型文件（*.json）</a-menu-item>
+              <!-- <a-menu-item key="xml">导入 BPMN 文件（*.xml）</a-menu-item> -->
+            </a-menu>
           </template>
-        </a-button>
-        <a-button disabled>
-          <template #icon>
-            <export-outlined />
+          <a-button id="import">
+            <template #icon>
+              <import-outlined />
+            </template>
+          </a-button>
+        </a-dropdown>
+        <a-dropdown :trigger="['click']">
+          <template #overlay>
+            <a-menu>
+              <a-menu-item id="exportRaw" key="json" @click="exportGraphRawData(modelType + '.json')">
+                导出 模型文件（*.json）
+              </a-menu-item>
+              <!-- <a-menu-item key="xml"  @click="exportGraphData(modelType + '.json')">导出 BPMN 文件（*.xml）</a-menu-item> -->
+              <a-menu-item id="exportPng" key="png" @click="exportPng(modelType)">
+                导出 PNG 文件
+              </a-menu-item>
+            </a-menu>
           </template>
-        </a-button>
+          <a-button id="export">
+            <template #icon>
+              <export-outlined />
+            </template>
+          </a-button>
+        </a-dropdown>
       </a-space>
       <a-button :disabled="!modified" type="primary">
+        保存
         <template #icon>
           <save-outlined />
         </template>
-        保存
       </a-button>
       <a-space :size="0">
         <a-button :disabled="undoDisable" @click="undo">
@@ -76,7 +97,7 @@
           </a-button>
         </a-tooltip>
         <a-tooltip title="自适应大小">
-          <a-button @click="fitView(100)">
+          <a-button id="fitView" @click="fitView(100)">
             <template #icon>
               <icon>
                 <template #component>
@@ -137,6 +158,7 @@ import Icon from '@ant-design/icons-vue';
 import { inject } from 'vue';
 
 const {
+  exportPng, exportGraphRawData, // exportGraphData,
   showMiniMap, toggleMiniMap, zoomOut, zoomIn, resetZoom, fitView,
   modified, undoDisable, redoDisable, undo, redo, propertiesPanel,
   modelTypeOptions, modelType, changedModelType, codeDrawerVisible

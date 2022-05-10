@@ -1,4 +1,4 @@
-import { ModelType } from 'logicflow-useapi/dist/types';
+import { ModelType } from 'logicflow-useapi';
 import FlowLink from "./edges/FlowLink";
 import DelayNode from "./nodes/DelayNode";
 import FetchNode from "./nodes/FetchNode";

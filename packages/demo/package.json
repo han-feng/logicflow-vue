@@ -9,7 +9,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "pnpm test:e2e",
-    "test:e2e": "cypress run",
+    "test:e2e": "cypress run && node script/img-resize.js",
     "clean": "rimraf dist",
     "clean:all": "rimraf node_modules dist",
     "preinstall": "npx only-allow pnpm"
@@ -17,8 +17,8 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@highlightjs/vue-plugin": "^2.1.0",
-    "@logicflow/core": "^1.1.14",
-    "@logicflow/extension": "^1.1.14",
+    "@logicflow/core": "^1.1.15",
+    "@logicflow/extension": "^1.1.15",
     "ant-design-vue": "3.2.3",
     "highlight.js": "^11.5.1",
     "ids": "^1.0.0",
@@ -28,12 +28,13 @@
   "devDependencies": {
     "@types/node": "^17.0.31",
     "@vitejs/plugin-vue": "^2.3.2",
-    "cypress": "^9.6.0",
+    "cypress": "^9.6.1",
     "rimraf": "^3.0.2",
-    "rollup": "^2.72.0",
+    "rollup": "^2.72.1",
     "rollup-plugin-visualizer": "^5.6.0",
+    "sharp": "^0.30.4",
     "typescript": "^4.6.4",
-    "unplugin-vue-components": "0.19.3",
+    "unplugin-vue-components": "0.19.5",
     "vite": "^2.9.8",
     "vue-tsc": "0.34.11"
   }
