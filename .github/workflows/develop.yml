@@ -29,15 +29,12 @@ jobs:
       - name: 🏭 Build
         run: pnpm all
 
-      # - name: 🩹 Cypress pnpm patch
-      #   run: cp pnpm-lock.yaml package-lock.json
-
       - name: 📸 E2E Test and Screen Capture
         uses: cypress-io/github-action@v2
         with:
           project: ./packages/demo
           install: false
-          build: pnpm -F logicflow-vue-demo exec cypress info
+          build: echo "Build"
           start: pnpm -F logicflow-vue-demo preview
           command: pnpm -F logicflow-vue-demo test:e2e
 
