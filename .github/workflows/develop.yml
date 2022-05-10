@@ -35,8 +35,8 @@ jobs:
       - name: 🩹 Cypress pnpm patch
         run: cp pnpm-lock.yaml package-lock.json
 
-      # - name: 🏗 Install Dependencies
-      #   run: pnpm install
+      - name: 🏗 Install Dependencies
+        run: pnpm install
 
       # - name: 🏭 Build
       #   run: pnpm all
@@ -46,7 +46,7 @@ jobs:
         with:
           project: ./packages/demo
           # working-directory: ./packages/demo
-          install: pnpm install
+          install: false
           build: pnpm all
           start: pnpm -F logicflow-vue-demo preview
           command: pnpm -F logicflow-vue-demo test:e2e
