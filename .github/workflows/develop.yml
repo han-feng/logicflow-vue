@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: '16'
           cache: "pnpm"
+          cache-dependency-path: '**/pnpm-lock.yaml'
 
       - name: 🛠 Setup pnpm
         uses: pnpm/action-setup@v2
@@ -27,7 +28,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-cypress-
 
