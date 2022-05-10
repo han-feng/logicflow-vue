@@ -37,8 +37,9 @@ jobs:
         with:
           project: ./packages/demo
           install: false
-          build: pnpm -F logicflow-vue-demo cypress info
-          start: pnpm preview
+          build: pnpm -F logicflow-vue-demo exec cypress info
+          start: pnpm -F logicflow-vue-demo preview
+          command: pnpm -F logicflow-vue-demo test:e2e
 
       - run: node packages/demo/script/img-resize.js
 
