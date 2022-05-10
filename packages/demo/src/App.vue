@@ -6,13 +6,13 @@
           <img alt="bpmn" src="/img/bpmn.png" />
         </template>
         <template #actions>
-          <a-button type="link" href="/viewer.html">
+          <a-button type="link" href="./viewer.html">
             查看
             <template #icon>
               <read-outlined />
             </template>
           </a-button>
-          <a-button type="link" href="/modeler.html">
+          <a-button type="link" href="./modeler.html">
             编辑
             <template #icon>
               <edit-outlined />
@@ -29,13 +29,13 @@
           <img alt="Node-RED" src="/img/nodeRed.png" />
         </template>
         <template #actions>
-          <a-button type="link" href="/viewer.html?modelType=nodeRed">
+          <a-button type="link" href="./viewer.html?modelType=nodeRed">
             查看
             <template #icon>
               <read-outlined />
             </template>
           </a-button>
-          <a-button type="link" href="/modeler.html?modelType=nodeRed">
+          <a-button type="link" href="./modeler.html?modelType=nodeRed">
             编辑
             <template #icon>
               <edit-outlined />
