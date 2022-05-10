@@ -12,19 +12,28 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v3
 
-      - name: 🛠 Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7.0.0
-
       - name: 🐝 Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
           cache: "pnpm"
+          cache-dependency-path: '**/pnpm-lock.yaml'
 
-      - name: 🏗 Install Dependencies
-        run: pnpm install
+      - name: 🛠 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Setup Cypress Cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-
+
+      # - name: 🏗 Install Dependencies
+      #   run: pnpm install
 
       # - name: 🏭 Build
       #   run: pnpm all
@@ -33,7 +42,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           # project: ./packages/demo
-          install: false
+          # working-directory: ./packages/demo
+          install: pnpm install
           build: pnpm all
           start: pnpm -F logicflow-vue-demo preview
           command: pnpm -F logicflow-vue-demo test:e2e
