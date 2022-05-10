@@ -26,19 +26,19 @@ jobs:
       - name: 🏗 Install Dependencies
         run: pnpm install
 
-      - name: 🏭 Build
-        run: pnpm all
+      # - name: 🏭 Build
+      #   run: pnpm all
 
       - name: 📸 E2E Test and Screen Capture
         uses: cypress-io/github-action@v2
         with:
-          project: ./packages/demo
+          # project: ./packages/demo
           install: false
-          build: echo "Build"
+          build: pnpm all
           start: pnpm -F logicflow-vue-demo preview
           command: pnpm -F logicflow-vue-demo test:e2e
 
-      - run: node packages/demo/script/img-resize.js
+      # - run: node packages/demo/script/img-resize.js
 
       - name: 🚀 Deploy Pages
         uses: JamesIves/github-pages-deploy-action@v4
