@@ -1,6 +1,6 @@
 {
   "name": "logicflow-vue-demo",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Logic Flow Vue Demo",
   "private": true,
   "scripts": {
@@ -22,7 +22,7 @@
     "ant-design-vue": "3.2.3",
     "highlight.js": "^11.5.1",
     "ids": "^1.0.0",
-    "logicflow-useapi": "workspace:^0.2.0",
+    "logicflow-useapi": "workspace:^0.3.0",
     "vue": "^3.2.33"
   },
   "devDependencies": {
