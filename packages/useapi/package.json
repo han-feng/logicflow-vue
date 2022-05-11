@@ -1,6 +1,6 @@
 {
   "name": "logicflow-useapi",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Logic Flow Vue use API",
   "license": "MIT",
   "mail": "dist/logicflow-useapi.js",
@@ -12,7 +12,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/han-feng/logicflow-vue/tree/main/packages/useapi"
+    "url": "https://github.com/han-feng/logicflow-vue/"
   },
   "keywords": [
     "LogicFlow",
