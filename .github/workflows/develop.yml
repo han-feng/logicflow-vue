@@ -45,13 +45,12 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           project: ./packages/demo
-          # working-directory: ./packages/demo
           install: false
           build: pnpm all
           start: pnpm -F logicflow-vue-demo preview
           command: pnpm -F logicflow-vue-demo test:e2e
 
-      # - run: node packages/demo/script/img-resize.js
+      - run: touch ./packages/demo/dist/.nojekyll
 
       - name: 🚀 Deploy Pages
         uses: JamesIves/github-pages-deploy-action@v4
