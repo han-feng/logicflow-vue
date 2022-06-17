@@ -1,14 +1,12 @@
-const fs = require('fs')
 const path = require('path')
-const sharp = require('sharp')
+const jimp = require('jimp')
 
-function resize(filename) {
-  sharp(path.join(__dirname, '../cypress/downloads', filename))
-    .resize(320, 180, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } })
-    .toFile(path.join(__dirname, '../dist/img', filename))
+async function resize(filename) {
+  const image = await jimp.read(path.join(__dirname, '../cypress/downloads', filename))
+  image.contain(320, 180).write(path.join(__dirname, '../dist/img', filename))
+  console.log(`${filename} resized`)
 }
 
-fs.mkdir(path.join(__dirname, '../dist/img'), { recursive: true }, () => {
-  resize('bpmn.png')
-  resize('nodeRed.png')
-})
+console.log('Resizing images...')
+resize('bpmn.png')
+resize('nodeRed.png')

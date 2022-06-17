@@ -10,10 +10,8 @@
     "preview": "pnpm -F logicflow-vue-demo preview",
     "test": "pnpm -r test",
     "clean": "pnpm -r clean",
-    "clean:all": "pnpm -r clean:all && rimraf pnpm-lock.yaml node_modules",
+    "clean:all": "pnpm --package=rimraf -s dlx rimraf pnpm-lock.yaml **/dist **/node_modules",
+    "reinstall": "pnpm clean:all && pnpm i",
     "preinstall": "npx only-allow pnpm"
-  },
-  "devDependencies": {
-    "rimraf": "^3.0.2"
   }
 }

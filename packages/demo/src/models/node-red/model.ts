@@ -127,7 +127,7 @@ export default <ModelType>{
       // todo: 让流程跑起来
       console.log('我要开始执行流程了')
     })
-    lf.on('vue-node:click', (data) => {
+    lf.on('vue-node:click', (data: { id: string, val: number }) => {
       lf.setProperties(data.id, {
         t: ++data.val
       })

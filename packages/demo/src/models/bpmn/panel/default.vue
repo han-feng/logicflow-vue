@@ -4,7 +4,10 @@
     <a-form-item label="编号" extra="唯一标识">
       <a-input v-model:value="data.id" />
     </a-form-item>
-    <a-form-item label="文本" name="text">
+    <a-form-item label="名称" name="text">
+      <a-textarea v-model:value="data.text" auto-size />
+    </a-form-item>
+    <a-form-item label="描述" name="text">
       <a-textarea v-model:value="data.text" auto-size />
     </a-form-item>
     <a-form-item label="扩展属性" name="properties">
