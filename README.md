@@ -1,5 +1,9 @@
 # LogicFlow Vue3 应用支持
 
+![GitHub package version](https://img.shields.io/github/package-json/v/han-feng/logicflow-vue?filename=packages%2Fuseapi%2Fpackage.json)
+[![npm](https://img.shields.io/npm/v/logicflow-useapi.svg)](https://npm.im/logicflow-useapi)
+[![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)](https://www.cypress.io/)
+
 ## 子项目
 * [useapi](./packages/useapi/README.md)
 * [demo](./packages/demo/README.md)

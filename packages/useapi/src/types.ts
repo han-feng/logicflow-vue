@@ -71,11 +71,15 @@ export type ViewerContext = {
 
   exportGraphRawData(filename: string): void
   exportGraphData(filename: string): void
-  exportPng(filename: string, backgroundColor: string): void
+  exportPng(filename: string, backgroundColor?: string): void
 
   showMiniMap: Ref<boolean>
   toggleMiniMap(): void
 
+  scale: {
+    value: number;
+    percentage: string;
+  }
   zoomOut(): void
   zoomIn(): void
   resetZoom(): void

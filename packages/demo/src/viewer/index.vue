@@ -1,7 +1,7 @@
 <template>
   <a-layout style="height: 100%; width: 100%; margin: 0; overflow: hidden">
-    <a-layout-header style="background: #fff; height: 48px;line-height: 48px; padding: 0 10px">
-      <toolbar></toolbar>
+    <a-layout-header style="background: #fff; height: 42px;line-height: 32px; padding: 5px 10px">
+      <toolbar />
     </a-layout-header>
     <a-layout-content>
       <div ref="container"
@@ -72,22 +72,6 @@ const _mt = urlParams.has('modelType') ? urlParams.get('modelType') : 'bpmn'
 const modelType = ref(_mt)
 const model = models.find(m => m.name === modelType.value) || models[0]
 
-// Change Model Type
-const changedModelType = () => {
-  if (modelType.value) {
-    urlParams.set('modelType', modelType.value)
-    location.search = urlParams.toString()
-  }
-}
-const _options: any[] = []
-models.forEach(m => {
-  _options.push({
-    label: m.label,
-    value: m.name
-  })
-})
-const modelTypeOptions = ref(_options)
-
 // Viewer
 const viewer = useViewer(model)
 
@@ -111,13 +95,7 @@ const setCode = () => {
 }
 
 // provide context
-provide('viewer_context', {
-  ...viewer,
-  modelTypeOptions,
-  modelType,
-  changedModelType,
-  codeDrawerVisible
-})
+provide('viewer_context', Object.assign(viewer, { codeDrawerVisible }))
 
 // init
 const container = ref<HTMLElement>()

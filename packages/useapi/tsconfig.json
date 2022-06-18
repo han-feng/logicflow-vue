@@ -9,6 +9,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     // 从 tslib 导入辅助工具函数（比如 __extends， __rest等）
     "importHelpers": true,
     "isolatedModules": true,

@@ -1,21 +1,23 @@
 <template>
   <a-layout style="height: 100%; width: 100%; margin: 0; overflow: hidden">
-    <a-layout-header style="background: #fff; height: 48px;line-height: 48px; padding: 0 10px">
-      <toolbar></toolbar>
+    <a-layout-header style="background: #fff; height: 42px;line-height: 32px; padding: 5px 10px">
+      <toolbar />
     </a-layout-header>
-    <a-layout hasSider>
-      <a-layout-content>
-        <div ref="container"
-          style="height: 100%; width: 100%;padding: 4px;box-shadow: 0 0 4px rgb(0 0 0 / 30%) inset; background: #fff">
-        </div>
-      </a-layout-content>
-      <a-layout-sider v-model:collapsed="propertiesPanel.collapsed" collapsible collapsedWidth="0" theme="light"
-        width="240px" style="background-color: #f8f8f8;border: 1px solid #ccc;overflow-x: hidden;overflow-y: auto;">
-        <keep-alive>
-          <component :is="propertiesPanel.component"></component>
-        </keep-alive>
-      </a-layout-sider>
-    </a-layout>
+    <a-layout-content>
+      <splitpanes class="default-theme" @resized="onResize" :dbl-click-splitter="false" :push-other-panes="false">
+        <pane :size="propertiesPanel.collapsed ? 100 - paneSize / 100 : 100 - paneSize">
+          <div ref="container"
+            style="height: 100%; width: 100%;padding: 4px;box-shadow: 0 0 4px rgb(0 0 0 / 30%) inset; background: #fff">
+          </div>
+        </pane>
+        <pane :size="propertiesPanel.collapsed ? paneSize / 100 : paneSize" v-show="!propertiesPanel.collapsed"
+          style="padding: 10px;background-color: #f8f8f8;overflow: hidden auto">
+          <keep-alive>
+            <component :is="propertiesPanel.component" />
+          </keep-alive>
+        </pane>
+      </splitpanes>
+    </a-layout-content>
   </a-layout>
   <a-drawer v-model:visible="codeDrawerVisible" title="代码" placement="right" size="large" :bodyStyle="{ padding: 0 }"
     @after-visible-change="setCode">
@@ -29,10 +31,6 @@
 </template>
 
 <style>
-.ant-layout-sider-children {
-  padding: 10px;
-}
-
 .lf-mini-map {
   padding-top: 0;
   right: 5px;
@@ -70,33 +68,22 @@ import json from 'highlight.js/lib/languages/json'
 import xml from 'highlight.js/lib/languages/xml'
 import 'highlight.js/styles/stackoverflow-light.css'
 import { PropertiesPanelConfig, useModeler } from 'logicflow-useapi'
-import { onMounted, provide, ref } from 'vue'
+import { addListener } from 'resize-detector'
+import { Pane, Splitpanes } from 'splitpanes'
+import 'splitpanes/dist/splitpanes.css'
+import { nextTick, onMounted, provide, ref } from 'vue'
 import models from '../models'
 import propertiesPanelConfigs from '../models/propertiesPanel'
 import Toolbar from './toolbar.vue'
 
+const container = ref<HTMLElement>()
+const paneSize = ref(30)
 // Model Config
 const urlParams = new URLSearchParams(location.search)
 const _mt = urlParams.has('modelType') ? urlParams.get('modelType') : 'bpmn'
 const modelType = ref(_mt)
 const model = models.find(m => m.name === modelType.value) || models[0]
 const propertiesPanelConfig: PropertiesPanelConfig = propertiesPanelConfigs[model.name]
-
-// Change Model Type
-const changedModelType = () => {
-  if (modelType.value) {
-    urlParams.set('modelType', modelType.value)
-    location.search = urlParams.toString()
-  }
-}
-const _options: any[] = []
-models.forEach(m => {
-  _options.push({
-    label: m.label,
-    value: m.name
-  })
-})
-const modelTypeOptions = ref(_options)
 
 // Modeler
 const modeler = useModeler(model, propertiesPanelConfig)
@@ -121,17 +108,30 @@ const setCode = () => {
   code.value = c
 }
 
+function containerResize() {
+  if (container.value && modeler.lf) {
+    const { width, height } = container.value.getBoundingClientRect()
+    modeler.lf.resize(width - 8, height - 8)
+  }
+}
+
+async function onResize(e: any) {
+  if (!container.value || !modeler.lf) return
+  console.log('onResize', e, modeler.lf.graphModel.width)
+  if (e[1] && e[1].size) {
+    const size = e[1].size
+    propertiesPanel.collapsed = (size < 5)
+    paneSize.value = size
+  }
+}
+
 // provide context
-provide('modeler_context', {
-  ...modeler,
-  modelTypeOptions,
+provide('modeler_context', Object.assign(modeler, {
   modelType,
-  changedModelType,
   codeDrawerVisible
-})
+}))
 
 // init
-const container = ref<HTMLElement>()
 onMounted(() => {
   if (!container.value) {
     console.log('error container is null')
@@ -152,5 +152,18 @@ onMounted(() => {
   modeler.initLogicFlow(_logicflow_options)
 
   existAdapterOut.value = !!modeler.lf?.adapterOut
+
+  // 探测 container 大小改变
+  let _listenerRunning = false
+  addListener(container.value, () => {
+    if (_listenerRunning) return
+    _listenerRunning = true
+    // 减少短时间重复调用
+    setTimeout(async () => {
+      _listenerRunning = false
+      await nextTick()
+      containerResize()
+    }, 500)
+  })
 })
 </script>

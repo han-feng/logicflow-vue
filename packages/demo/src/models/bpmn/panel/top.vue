@@ -14,7 +14,6 @@
 import { usePropertiesPanelData } from 'logicflow-useapi';
 import { ref } from 'vue';
 import './style.css';
-
 const data = usePropertiesPanelData()
-const title = ref('Process Properties Panel')
+const title = ref('流程详细信息')
 </script>

@@ -3,7 +3,6 @@ import StartEvent from '@logicflow/extension/es/bpmn/events/StartEvent';
 import SequenceFlow from '@logicflow/extension/es/bpmn/flow/SequenceFlow';
 import Gateway from '@logicflow/extension/es/bpmn/gateways/ExclusiveGateway';
 import { ModelType } from 'logicflow-useapi';
-import '../../env.d.ts';
 import { endIcon, gatewayIcon, serviceTaskIcon, startIcon, userTaskIcon } from './icons';
 import newData from './newdata.json';
 import EndEvent from './nodes/EndEvent';
