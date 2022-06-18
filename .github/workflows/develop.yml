@@ -49,7 +49,7 @@ jobs:
           install: false
           build: pnpm build
           start: pnpm -F logicflow-vue-demo preview
-          command: pnpm -F logicflow-vue-demo test:e2e
+          command: pnpm -F logicflow-vue-demo cy:run
 
       - run: touch ./packages/demo/dist/.nojekyll
 
