@@ -38,15 +38,16 @@ jobs:
       - name: 🏗 Install Dependencies
         run: pnpm install
 
-      # - name: 🏭 Build
-      #   run: pnpm all
+      - name: 🏭 Build
+        run: pnpm all
 
       - name: 📸 E2E Test and Screen Capture
         uses: cypress-io/github-action@v2
+        continue-on-error: true
         with:
           project: ./packages/demo
           install: false
-          build: pnpm all
+          build: pnpm build
           start: pnpm -F logicflow-vue-demo preview
           command: pnpm -F logicflow-vue-demo test:e2e
 
