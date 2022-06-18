@@ -45,22 +45,8 @@ export default defineConfig(({ command, mode }) => {
     },
     server: {
       open: true,
-      host: '0.0.0.0',
-      // https: true,
-      port: 8088,
-      proxy: {
-        '/api': {
-          target: 'http://localhost:8080/zlease/flow/api',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-        '/ws-api': {
-          target: 'wss://nest-api.buqiyuan.site',
-          // target: 'http://localhost:7002',
-          changeOrigin: true, //是否允许跨域
-          ws: true,
-        },
-      },
+      port: 4173,
+      strictPort: true
     }
   }
 })
