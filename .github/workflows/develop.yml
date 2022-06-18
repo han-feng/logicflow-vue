@@ -47,7 +47,7 @@ jobs:
         with:
           project: ./packages/demo
           install: false
-          build: pnpm build
+          build: echo 🏭
           start: pnpm -F logicflow-vue-demo preview
           command: pnpm -F logicflow-vue-demo cy:run
 
