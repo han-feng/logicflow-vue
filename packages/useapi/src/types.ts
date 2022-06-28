@@ -1,4 +1,4 @@
-import { BaseEdgeModel, BaseNodeModel, Definition, LogicFlow } from '@logicflow/core';
+import { BaseEdgeModel, BaseNodeModel, Definition, GraphConfigData, LogicFlow } from '@logicflow/core';
 import { DefineComponent, Ref, ShallowReactive } from 'vue';
 
 export type NodeType = {
@@ -19,6 +19,13 @@ export type EdgeType = {
   model: any
 }
 
+export type Adapter = {
+  label: string
+  extension: string // 文件扩展名
+  in(src: string): GraphData
+  out(data?: GraphData): string
+}
+
 export type ModelType = {
   name: string
   label: string
@@ -26,7 +33,8 @@ export type ModelType = {
   nodeTypes: NodeType[]
   edgeTypes?: EdgeType[]
   theme?: any
-  newData?: {}
+  newData?: GraphData
+  adapters?: Record<string, Adapter>
   plugins?: any[]
   init?: (lf: LogicFlow) => void  // 初始化
 }
@@ -35,7 +43,7 @@ export type PropertiesPanelConfig = {
   /**
    * 顶层元素属性面板
    */
-  top?: DefineComponent<{}, {}, any>
+  top: DefineComponent<{}, {}, any>
   /**
    * 默认元素属性面板：没有对应元素类型的面板时，使用该面板
    */
@@ -54,6 +62,7 @@ export type PropertiesPanelView = {
 }
 
 export type PropertiesPanelContext = {
+  modeler: ViewerContext | ModelerContext
   lf?: LogicFlow
   selectedModel?: BaseNodeModel | BaseEdgeModel
 }
@@ -65,12 +74,26 @@ export type PropertiesPanelData = {
   properties: Record<string, any>,
 }
 
+export type GraphModelData = {
+  id: string,
+  type: string,
+  text: string,
+  properties: Record<string, any>
+}
+
+export type GraphData = GraphConfigData & GraphModelData
+
 export type ViewerContext = {
   lf?: LogicFlow
   initLogicFlow(logicflowOptions: Definition): void
 
-  exportGraphRawData(filename: string): void
-  exportGraphData(filename: string): void
+  modelType: ModelType
+
+  graphData: GraphModelData
+
+  getDataObject(): GraphData | undefined
+  getData(adapterKey?: string): string
+  exportData(filename: string, adapterKey?: string): void
   exportPng(filename: string, backgroundColor?: string): void
 
   showMiniMap: Ref<boolean>

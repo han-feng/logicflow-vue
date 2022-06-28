@@ -14,8 +14,10 @@
       <a-dropdown :trigger="['click']">
         <template #overlay>
           <a-menu>
-            <a-menu-item key="json">导入 模型文件（*.json）</a-menu-item>
-            <!-- <a-menu-item key="xml">导入 BPMN 文件（*.xml）</a-menu-item> -->
+            <a-menu-item v-for="(adapter, key) in adapters" :key="key">
+              导入 {{ adapter.label }} 文件（*.{{ adapter.extension }}）
+            </a-menu-item>
+            <a-menu-item key="json">导入 JSON 文件（*.json）</a-menu-item>
           </a-menu>
         </template>
         <a-button id="import">
@@ -27,16 +29,20 @@
       <a-dropdown :trigger="['click']">
         <template #overlay>
           <a-menu>
-            <a-menu-item id="exportRaw" key="json" @click="exportGraphRawData(modelType + '.json')">
-              导出 模型文件（*.json）
+            <a-menu-item v-for="(adapter, key) in adapters" :key="key"
+              @click="exportData(modelType.name + '.' + adapter.extension, key)">
+              导出 {{ adapter.label }} 文件（*.{{ adapter.extension }}）
             </a-menu-item>
-            <!-- <a-menu-item key="xml"  @click="exportGraphData(modelType + '.json')">导出 BPMN 文件（*.xml）</a-menu-item> -->
-            <a-menu-item id="exportPng" key="png" @click="exportPng(modelType)">
-              导出 PNG 文件
+            <a-menu-item key="json" @click="exportData(modelType.name + '.json', 'json')">
+              导出 JSON 文件（*.json）
+            </a-menu-item>
+            <a-menu-divider />
+            <a-menu-item key="png" @click="exportPng(modelType.name)">
+              导出图像文件 （*.png）
             </a-menu-item>
           </a-menu>
         </template>
-        <a-button id="export">
+        <a-button>
           <template #icon>
             <export-outlined />
           </template>
@@ -117,7 +123,7 @@
         </template>
       </a-button>
       <a-tooltip title="查看代码">
-        <a-button @click="codeDrawerVisible = true" :type="codeDrawerVisible ? 'primary' : 'default'">
+        <a-button @click="codeViewerVisible = true" :type="codeViewerVisible ? 'primary' : 'default'">
           <template #icon>
             <icon>
               <template #component>
@@ -133,18 +139,22 @@
       </a-tooltip>
     </a-button-group>
   </a-space>
+  <code-viewer v-model:visible="codeViewerVisible" :graphViewer="modelerContext" />
 </template>
 
 <script setup lang="ts">
 import Icon from '@ant-design/icons-vue';
 import { ModelerContext } from 'logicflow-useapi';
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
 
 const modelerContext: ModelerContext = inject<any>('modeler_context')
 const {
-  exportPng, exportGraphRawData, // exportGraphData,
+  exportPng, exportData, modelType,
   showMiniMap, toggleMiniMap, scale, zoomOut, zoomIn, resetZoom, fitView,
-  modified, undoDisable, redoDisable, undo, redo, propertiesPanel,
-  modelType, codeDrawerVisible
+  modified, undoDisable, redoDisable, undo, redo, propertiesPanel
 } = modelerContext
+
+const adapters = modelerContext.modelType.adapters
+
+const codeViewerVisible = ref(false)
 </script>

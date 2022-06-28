@@ -13,7 +13,7 @@ class UserTaskModel extends RectNodeModel {
 
 class UserTaskView extends RectNode {
   static extendKey = 'UserTaskNode';
-  getLabelShape() {
+  getLabelShape(): h.JSX.Element {
     const { model } = this.props;
     const { x, y, width, height } = model;
     const style = model.getNodeStyle();
@@ -33,11 +33,11 @@ class UserTaskView extends RectNode {
       }),
     );
   }
-  getShape() {
+  getShape(): h.JSX.Element {
     const { model } = this.props;
     const { x, y, width, height, radius } = model;
     const style = model.getNodeStyle();
-    // todo: 将basic-shape对外暴露，在这里可以直接用。现在纯手写有点麻烦。
+    // TODO: 将basic-shape对外暴露，在这里可以直接用。现在纯手写有点麻烦。
     return h('g', {}, [
       h('rect', {
         x: x - width / 2,
