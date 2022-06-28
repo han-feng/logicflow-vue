@@ -28,10 +28,10 @@ describe('basic', () => {
     cy.screenshot('modeler')
 
     cy.get('button#export').click()
-    cy.get('li#exportRaw').click()
+    cy.get('li[data-menu-id="json"]').click()
 
     cy.get('button#export').click()
-    cy.get('li#exportPng').click()
+    cy.get('li[data-menu-id="png"]').click()
   })
 
   it('NodeRed', () => {
@@ -43,10 +43,10 @@ describe('basic', () => {
     cy.screenshot('nodeRed')
 
     cy.get('button#export').click()
-    cy.get('li#exportRaw').click()
+    cy.get('li[data-menu-id="json"]').click()
 
     cy.get('button#export').click()
-    cy.get('li#exportPng').click()
+    cy.get('li[data-menu-id="png"]').click()
   })
 
 })

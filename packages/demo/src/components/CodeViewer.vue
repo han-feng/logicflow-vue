@@ -43,8 +43,8 @@ import hljs from 'highlight.js/lib/core'
 import json from 'highlight.js/lib/languages/json'
 import xml from 'highlight.js/lib/languages/xml'
 import 'highlight.js/styles/stackoverflow-light.css'
+import { ViewerContext } from "logicflow-useapi"
 import { ref, watch } from 'vue'
-import { ViewerContext } from "../useapi"
 
 const props = defineProps<{
   visible: boolean

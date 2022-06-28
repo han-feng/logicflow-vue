@@ -1,8 +1,8 @@
-import type { GraphData } from '@/useapi/types';
 import {
   EndEventConfig, ExclusiveGatewayConfig, ServiceTaskConfig, StartEventConfig, UserTaskConfig
 } from '@logicflow/extension/es/bpmn/constant';
 import { getBpmnId } from '@logicflow/extension/es/bpmn/getBpmnId';
+import type { GraphData } from 'logicflow-useapi';
 import { lfJson2Xml } from './json2xml';
 import { lfXml2Json } from './xml2json';
 
