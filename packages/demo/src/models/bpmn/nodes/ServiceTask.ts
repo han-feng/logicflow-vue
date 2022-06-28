@@ -13,7 +13,7 @@ class ServiceTaskModel extends RectNodeModel {
 
 class ServiceTaskView extends RectNode {
   static extendKey = 'ServiceTaskNode';
-  getLabelShape() {
+  getLabelShape(): h.JSX.Element {
     const { model } = this.props;
     const { x, y, width, height } = model;
     const style = model.getNodeStyle();
@@ -33,7 +33,7 @@ class ServiceTaskView extends RectNode {
       }),
     );
   }
-  getShape() {
+  getShape(): h.JSX.Element {
     const { model } = this.props;
     const { x, y, width, height, radius } = model;
     const style = model.getNodeStyle();

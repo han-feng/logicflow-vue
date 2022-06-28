@@ -1,19 +1,34 @@
 <template>
-  <h1>{{ title }}</h1>
-  <a-form layout="vertical" class="properties-panel-form" :model="data" name="ppform">
-    <a-form-item label="编号" extra="流程模型的唯一标识">
-      <a-input v-model:value="data.id" />
-    </a-form-item>
-    <a-form-item label="扩展属性" name="properties">
-      <properties-editor :value="data.properties" />
-    </a-form-item>
-  </a-form>
+  <h1>流程属性</h1>
+  <a-tabs>
+    <a-tab-pane key="general" tab="常规">
+      <a-form layout="vertical" class="properties-panel-form" :model="data" name="ppform">
+        <a-form-item label="编号">
+          <a-input v-model:value="data.id" />
+        </a-form-item>
+        <a-form-item label="名称" name="text">
+          <a-textarea v-model:value="data.text" auto-size />
+        </a-form-item>
+      </a-form>
+    </a-tab-pane>
+    <a-tab-pane key="extensions" tab="高级">
+      <a-form
+        layout="vertical"
+        class="properties-panel-form"
+        :model="data.properties"
+        name="propsform"
+      >
+        <a-form-item label="属性" name="properties">
+          <properties-editor :value="data.properties" />
+        </a-form-item>
+      </a-form>
+    </a-tab-pane>
+  </a-tabs>
 </template>
 
 <script setup lang="ts">
 import { usePropertiesPanelData } from 'logicflow-useapi';
-import { ref } from 'vue';
 import './style.css';
-const data = usePropertiesPanelData()
-const title = ref('流程详细信息')
+
+const data = usePropertiesPanelData(true);
 </script>

@@ -19,15 +19,6 @@
       </splitpanes>
     </a-layout-content>
   </a-layout>
-  <a-drawer v-model:visible="codeDrawerVisible" title="代码" placement="right" size="large" :bodyStyle="{ padding: 0 }"
-    @after-visible-change="setCode">
-    <template #extra>
-      <a-form-item v-if="existAdapterOut" label="原始代码" style="margin: 0">
-        <a-switch v-model:checked="rawCode" @change="setCode" />
-      </a-form-item>
-    </template>
-    <highlight autodetect :code="code" />
-  </a-drawer>
 </template>
 
 <style>
@@ -48,24 +39,13 @@
 .lf-mini-map .lf-graph {
   background: none;
 }
-
-pre,
-pre code.hljs {
-  overflow: visible;
-  margin: 0;
-  background-color: transparent;
-}
 </style>
 
 <script setup lang="ts">
-import highlightjs from "@highlightjs/vue-plugin"
 import { Definition } from '@logicflow/core'
 import '@logicflow/core/dist/style/index.css'
 import { DndPanel, InsertNodeInPolyline, Menu, MiniMap, SelectionSelect, Snapshot } from '@logicflow/extension'
 import '@logicflow/extension/lib/style/index.css'
-import hljs from 'highlight.js/lib/core'
-import json from 'highlight.js/lib/languages/json'
-import xml from 'highlight.js/lib/languages/xml'
 import 'highlight.js/styles/stackoverflow-light.css'
 import { PropertiesPanelConfig, useModeler } from 'logicflow-useapi'
 import { addListener } from 'resize-detector'
@@ -89,25 +69,6 @@ const propertiesPanelConfig: PropertiesPanelConfig = propertiesPanelConfigs[mode
 const modeler = useModeler(model, propertiesPanelConfig)
 const { propertiesPanel } = modeler
 
-// codeViewer
-hljs.registerLanguage('json', json);
-hljs.registerLanguage('xml', xml);
-const highlight = highlightjs.component
-const codeDrawerVisible = ref(false)
-const code = ref('')
-const rawCode = ref(false)
-const existAdapterOut = ref(false)
-const setCode = () => {
-  let c
-  if (rawCode.value) {
-    c = modeler.lf?.getGraphRawData()
-  } else {
-    c = modeler.lf?.getGraphData()
-  }
-  if (typeof c == 'object') c = JSON.stringify(c, null, 2)
-  code.value = c
-}
-
 function containerResize() {
   if (container.value && modeler.lf) {
     const { width, height } = container.value.getBoundingClientRect()
@@ -117,7 +78,7 @@ function containerResize() {
 
 async function onResize(e: any) {
   if (!container.value || !modeler.lf) return
-  console.log('onResize', e, modeler.lf.graphModel.width)
+  // console.log('onResize', e, modeler.lf.graphModel.width)
   if (e[1] && e[1].size) {
     const size = e[1].size
     propertiesPanel.collapsed = (size < 5)
@@ -126,10 +87,7 @@ async function onResize(e: any) {
 }
 
 // provide context
-provide('modeler_context', Object.assign(modeler, {
-  modelType,
-  codeDrawerVisible
-}))
+provide('modeler_context', modeler)
 
 // init
 onMounted(() => {
@@ -142,6 +100,12 @@ onMounted(() => {
     adjustEdgeStartAndEnd: true,
     // nodeTextDraggable: true,
     edgeTextDraggable: true,
+    multipleSelectKey: 'meta',
+    style: {
+      nodeText: {
+        overflowMode: 'autoWrap'
+      },
+    },
     keyboard: {
       enabled: true,
     },
@@ -150,8 +114,6 @@ onMounted(() => {
     ]
   }
   modeler.initLogicFlow(_logicflow_options)
-
-  existAdapterOut.value = !!modeler.lf?.adapterOut
 
   // 探测 container 大小改变
   let _listenerRunning = false

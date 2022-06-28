@@ -124,10 +124,10 @@ export default <ModelType>{
   },
   init(lf) {
     lf.on('node-red:start', () => {
-      // todo: 让流程跑起来
+      // TODO: 让流程跑起来
       console.log('我要开始执行流程了')
     })
-    lf.on('vue-node:click', (data: { id: string, val: number }) => {
+    lf.on('vue-node:click', (data: { id: string; val: number; }) => {
       lf.setProperties(data.id, {
         t: ++data.val
       })

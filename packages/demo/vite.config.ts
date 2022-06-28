@@ -31,7 +31,9 @@ export default defineConfig(({ command, mode }) => {
     ],
     resolve: {
       alias: {
-        "@": "/src"
+        "@/": "/src/",
+        "@logicflow/core/dist/style/index.css": "@logicflow/core/dist/style/index.css",
+        "@logicflow/core": "@logicflow/core/dist/logic-flow.js",
       }
     },
     build: {

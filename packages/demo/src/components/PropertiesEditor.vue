@@ -1,6 +1,6 @@
 <template>
   <div :id="id" v-bind="$attrs">
-    <a-row v-for="(data) in properties">
+    <a-row v-for="(data, key) in properties" :key="key">
       <a-input-group compact>
         <a-auto-complete :dropdownMatchSelectWidth="false" size="small" v-model:value="data.newKey" :options="options"
           @blur="changeKey(data)" style="width:calc(50% - 12px)">
@@ -83,7 +83,7 @@ const properties = reactive<Property[]>(copy(props.value, []))
 watch(
   () => props.value,
   (newVal, oldVal) => {
-    console.log(newVal, '->', oldVal)
+    // console.log(newVal, '->', oldVal)
     copy(newVal, properties)
   },
   { deep: true }
@@ -101,7 +101,7 @@ function delProp(key: string) {
 function changeKey(data: Property) {
   if (data.key === data.newKey) return
   // Key 校验
-  // TODO 使用 Form 校验规则及错误提示
+  // TODO: 使用 Form 校验规则及错误提示
   const newKey = data.newKey
   if (newKey.startsWith('__')) {
     console.log('key 不能以 __ 开头')
@@ -111,7 +111,7 @@ function changeKey(data: Property) {
     console.log('存在重复的 key')
     return
   }
-  console.log('changeKey', data)
+  // console.log('changeKey', data)
   const oldKey = data.key
   data.key = newKey
   props.value[newKey] = data.value
@@ -120,7 +120,7 @@ function changeKey(data: Property) {
 
 function changeValue(data: Property) {
   if (data.value === data.newValue) return
-  console.log('changeValue', data)
+  // console.log('changeValue', data)
   // data.value = data.newValue // 不用修改，会触发 watch 自动更新
   props.value[data.key] = data.newValue
 }

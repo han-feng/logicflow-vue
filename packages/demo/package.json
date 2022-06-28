@@ -6,7 +6,7 @@
   "scripts": {
     "all": "pnpm clean && pnpm build",
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit && vite build && node script/crlf.js",
     "preview": "vite preview",
     "cy:run": "cypress install && cypress run",
     "test": "pnpm test:e2e",
@@ -17,9 +17,9 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@highlightjs/vue-plugin": "^2.1.0",
-    "@logicflow/core": "1.1.19",
-    "@logicflow/extension": "1.1.19",
-    "ant-design-vue": "^3.2.7",
+    "@logicflow/core": "^1.1.20",
+    "@logicflow/extension": "^1.1.20",
+    "ant-design-vue": "^3.2.9",
     "highlight.js": "^11.5.1",
     "ids": "^1.0.0",
     "logicflow-useapi": "workspace:^0.3.0",
@@ -28,16 +28,16 @@
     "vue": "^3.2.37"
   },
   "devDependencies": {
-    "@types/node": "^17.0.45",
+    "@types/node": "^18.0.0",
     "@types/splitpanes": "^2.2.1",
     "@vitejs/plugin-vue": "^2.3.3",
     "rimraf": "^3.0.2",
-    "rollup": "^2.75.6",
+    "rollup": "^2.75.7",
     "rollup-plugin-visualizer": "^5.6.0",
-    "typescript": "^4.7.3",
-    "unplugin-vue-components": "^0.19.6",
-    "vite": "^2.9.12",
-    "vue-tsc": "^0.37.9"
+    "typescript": "^4.7.4",
+    "unplugin-vue-components": "^0.20.1",
+    "vite": "^2.9.13",
+    "vue-tsc": "^0.38.2"
   },
   "optionalDependencies": {
     "cypress": "^9.7.0",
