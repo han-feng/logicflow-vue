@@ -19,7 +19,8 @@ importers:
       highlight.js: ^11.5.1
       ids: ^1.0.0
       jimp: ^0.16.1
-      logicflow-useapi: workspace:^0.3.0
+      lodash: ^4.17.21
+      logicflow-useapi: workspace:^0.4.0
       resize-detector: ^0.3.0
       rimraf: ^3.0.2
       rollup: ^2.75.7
@@ -39,6 +40,7 @@ importers:
       ant-design-vue: 3.2.9_vue@3.2.37
       highlight.js: 11.5.1
       ids: 1.0.0
+      lodash: 4.17.21
       logicflow-useapi: link:../useapi
       resize-detector: 0.3.0
       splitpanes: 3.1.1
