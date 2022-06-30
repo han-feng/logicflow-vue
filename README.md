@@ -3,6 +3,7 @@
 ![GitHub package version](https://img.shields.io/github/package-json/v/han-feng/logicflow-vue?filename=packages%2Fuseapi%2Fpackage.json)
 [![npm](https://img.shields.io/npm/v/logicflow-useapi.svg)](https://npm.im/logicflow-useapi)
 [![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)](https://www.cypress.io/)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhan-feng%2Flogicflow-vue.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhan-feng%2Flogicflow-vue?ref=badge_shield)
 
 ## 子项目
 * [useapi](./packages/useapi/README.md)
@@ -47,3 +48,10 @@
 >   npm install -g @antfu/ni
 >   ```
 >
+
+## License
+
+[![作者](https://img.shields.io/badge/%E4%BD%9C%E8%80%85-han__feng%40foxmail.com-red.svg?style=social&logo=github)](mailto:han_feng@foxmail.com)
+![GitHub](https://img.shields.io/github/license/han-feng/logicflow-vue.svg)
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhan-feng%2Flogicflow-vue.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhan-feng%2Flogicflow-vue?ref=badge_large)
