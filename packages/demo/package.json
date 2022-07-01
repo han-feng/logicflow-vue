@@ -29,7 +29,7 @@
     "vue": "^3.2.37"
   },
   "optionalDependencies": {
-    "cypress": "^9.7.0",
+    "cypress": "^10.3.0",
     "jimp": "^0.16.1",
     "start-server-and-test": "^1.14.0"
   },

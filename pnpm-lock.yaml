@@ -24,7 +24,7 @@ importers:
       '@types/splitpanes': ^2.2.1
       '@vitejs/plugin-vue': ^2.3.3
       ant-design-vue: ^3.2.9
-      cypress: ^9.7.0
+      cypress: ^10.3.0
       highlight.js: ^11.5.1
       ids: ^1.0.0
       jimp: ^0.16.1
@@ -55,7 +55,7 @@ importers:
       splitpanes: 3.1.1
       vue: 3.2.37
     optionalDependencies:
-      cypress: 9.7.0
+      cypress: 10.3.0
       jimp: 0.16.1
       start-server-and-test: 1.14.0
     devDependencies:
@@ -1756,8 +1756,8 @@ packages:
   /csstype/2.6.20:
     resolution: {integrity: sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==}
 
-  /cypress/9.7.0:
-    resolution: {integrity: sha512-+1EE1nuuuwIt/N1KXRR2iWHU+OiIt7H28jJDyyI4tiUftId/DrXYEwoDa5+kH2pki1zxnA0r6HrUGHV5eLbF5Q==}
+  /cypress/10.3.0:
+    resolution: {integrity: sha512-txkQWKzvBVnWdCuKs5Xc08gjpO89W2Dom2wpZgT9zWZT5jXxqPIxqP/NC1YArtkpmp3fN5HW8aDjYBizHLUFvg==}
     engines: {node: '>=12.0.0'}
     hasBin: true
     requiresBuild: true
