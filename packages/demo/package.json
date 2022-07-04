@@ -17,8 +17,8 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@highlightjs/vue-plugin": "^2.1.0",
-    "@logicflow/core": "^1.1.20",
-    "@logicflow/extension": "^1.1.20",
+    "@logicflow/core": "^1.1.21",
+    "@logicflow/extension": "^1.1.21",
     "ant-design-vue": "^3.2.9",
     "highlight.js": "^11.5.1",
     "ids": "^1.0.0",
@@ -34,7 +34,7 @@
     "start-server-and-test": "^1.14.0"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
+    "@types/node": "^18.0.1",
     "@types/splitpanes": "^2.2.1",
     "@vitejs/plugin-vue": "^2.3.3",
     "rimraf": "^3.0.2",

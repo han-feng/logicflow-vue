@@ -19,7 +19,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'logicflow-useapi',
       formats: ['es'],
-      fileName: format => 'logicflow-useapi.js',
+      fileName: () => 'logicflow-useapi.js',
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
