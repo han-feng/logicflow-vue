@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import visualizer from 'rollup-plugin-visualizer'
+import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
@@ -18,8 +18,6 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'logicflow-useapi',
-      formats: ['es'],
-      fileName: () => 'logicflow-useapi.js',
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖

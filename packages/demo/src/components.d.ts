@@ -3,6 +3,8 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 import '@vue/runtime-core'
 
+export {}
+
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AAutoComplete: typeof import('ant-design-vue/es')['AutoComplete']
@@ -56,5 +58,3 @@ declare module '@vue/runtime-core' {
     ZoomOutOutlined: typeof import('@ant-design/icons-vue')['ZoomOutOutlined']
   }
 }
-
-export {}
