@@ -47,10 +47,15 @@
     "target": "esnext",
     // 要包含的类型声明文件名列表
     "types": [
-      "node"
+      "node",
+      "vite/client"
     ],
     "useDefineForClassFields": true,
   },
+  "exclude": [
+    "dist",
+    "node_modules",
+  ],
   "include": [
     "src"
   ]

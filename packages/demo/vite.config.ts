@@ -2,8 +2,10 @@ import { join } from 'path'
 import vue from '@vitejs/plugin-vue'
 import visualizer from 'rollup-plugin-visualizer'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
-import Components from 'unplugin-vue-components/vite'
+import components from 'unplugin-vue-components/vite'
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
+import { createStyleImportPlugin } from 'vite-plugin-style-import'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -13,7 +15,18 @@ export default defineConfig(({ command, mode }) => {
     plugins: [
       vue(),
       splitVendorChunkPlugin(),
-      Components({
+      createStyleImportPlugin({
+        libs: [
+          {
+            libraryName: 'ant-design-vue',
+            esModule: true,
+            resolveStyle: (name) => {
+              return `ant-design-vue/es/${name}/style/css`
+            },
+          },
+        ],
+      }),
+      components({
         // Vue 组件自动按需导入
         resolvers: [
           AntDesignVueResolver({
@@ -21,6 +34,9 @@ export default defineConfig(({ command, mode }) => {
           }),
         ],
         dts: command === 'build' ? 'src/components.d.ts' : false,
+      }),
+      resolveExternalsPlugin({
+        serverConfig: 'serverConfig',
       }),
       visualizer({
         open: false,

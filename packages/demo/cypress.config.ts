@@ -5,7 +5,7 @@ export default defineConfig({
   viewportWidth: 1024,
   fixturesFolder: false,
   e2e: {
-    setupNodeEvents(on, config) {},
+    // setupNodeEvents(on, config) {},
     baseUrl: 'http://localhost:4173',
     supportFile: false,
   },

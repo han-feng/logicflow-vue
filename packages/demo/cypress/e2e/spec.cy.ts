@@ -49,4 +49,4 @@ describe('basic', () => {
   })
 })
 
-export { }
+export default {}

@@ -50,7 +50,7 @@
       "node",
       "vite/client"
     ],
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
   },
   "exclude": [
     "dist",

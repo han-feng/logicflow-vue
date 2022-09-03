@@ -23,7 +23,6 @@
 import { usePropertiesPanelData } from 'logicflow-useapi'
 import { ref } from 'vue'
 import './style.css'
-
 const data = usePropertiesPanelData()
-const title = ref('Default Properties Panel')
+const title = ref('开始节点')
 </script>
