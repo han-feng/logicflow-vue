@@ -6,7 +6,7 @@
     </h1>
     <a-tabs>
       <a-tab-pane key="general" tab="常规">
-      <a-form layout="vertical" class="properties-panel-form" :model="data" name="ppform">
+        <a-form layout="vertical" class="properties-panel-form" :model="data" name="ppform">
           <a-form-item label="编号">
             <a-input v-model:value="data.id" />
           </a-form-item>
@@ -17,18 +17,6 @@
             <a-textarea v-model:value="data.properties.discription" auto-size />
           </a-form-item>
         </a-form>
-      </a-tab-pane>
-      <a-tab-pane key="userTaskInfo" tab="参与者">
-        <business-assignee :value="data.properties" />
-      </a-tab-pane>
-      <a-tab-pane key="taskAssignment" tab="工作台" force-render>
-        <business-work-space :value="data.properties" displayType="userTask" />
-      </a-tab-pane>
-      <a-tab-pane key="BusinessOper" tab="操作" force-render>
-        <business-oper :value="data.properties" displayType="userTask" />
-      </a-tab-pane>
-      <a-tab-pane key="listener" tab="监听" force-render>
-        <business-listener :value="data.properties" displayType="userTask" />
       </a-tab-pane>
       <a-tab-pane key="extensions" tab="扩展">
         <a-form layout="vertical" class="properties-panel-form" :model="data" name="propsform">

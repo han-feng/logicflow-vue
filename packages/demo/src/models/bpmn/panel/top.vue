@@ -14,15 +14,6 @@
         </a-form-item>
       </a-form>
     </a-tab-pane>
-    <a-tab-pane key="processUnit" tab="业务单元" force-render>
-      <business-unit :value="data.properties" displayType="process" />
-    </a-tab-pane>
-    <a-tab-pane key="processOper" tab="操作" force-render>
-      <business-oper :value="data.properties" displayType="process" />
-    </a-tab-pane>
-    <a-tab-pane key="listener" tab="监听" force-render>
-      <business-listener :value="data.properties" displayType="process" />
-    </a-tab-pane>
     <a-tab-pane key="extensions" tab="扩展">
       <a-form layout="vertical" class="properties-panel-form" :model="data.properties" name="propsform">
         <a-form-item label="扩展属性" name="properties">
