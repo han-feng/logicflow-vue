@@ -22,11 +22,13 @@
             </a-menu-item>
           </a-menu>
         </template>
-        <a-button id="import">
-          <template #icon>
-            <import-outlined />
-          </template>
-        </a-button>
+        <a-tooltip title="导入">
+          <a-button id="import">
+            <template #icon>
+              <import-outlined />
+            </template>
+          </a-button>
+        </a-tooltip>
       </a-dropdown>
       <a-dropdown :trigger="['click']">
         <template #overlay>
@@ -46,11 +48,13 @@
             </a-menu-item>
           </a-menu>
         </template>
-        <a-button id="export">
-          <template #icon>
-            <export-outlined />
-          </template>
-        </a-button>
+        <a-tooltip title="导出">
+          <a-button id="export">
+            <template #icon>
+              <export-outlined />
+            </template>
+          </a-button>
+        </a-tooltip>
       </a-dropdown>
     </a-button-group>
     <a-button-group>

@@ -1,7 +1,7 @@
 <template>
   <h1>{{ title }}</h1>
   <a-form layout="vertical" class="properties-panel-form" :model="data" name="ppform">
-    <a-form-item label="编号" extra="唯一标识">
+    <a-form-item label="类型">
       <a-input v-model:value="data.type" />
     </a-form-item>
     <a-form-item label="编号" extra="唯一标识">

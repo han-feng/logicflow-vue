@@ -53,7 +53,7 @@ import type { PropertiesPanelConfig } from 'logicflow-useapi'
 import { useModeler } from 'logicflow-useapi'
 import { Pane, Splitpanes } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
-import { provide, ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import models from '../models'
 import propertiesPanelConfigs from '../models/propertiesPanel'
 import Toolbar from './toolbar.vue'
@@ -68,7 +68,7 @@ const model = models.find(m => m.name === modelType.value) || models[0]
 const propertiesPanelConfig: PropertiesPanelConfig = propertiesPanelConfigs[model.name]
 
 // Modeler
-const _logicflow_options = {
+const _logicflowOptions = {
   adjustEdgeStartAndEnd: true,
   // nodeTextDraggable: true,
   edgeTextDraggable: true,
@@ -89,7 +89,7 @@ const _logicflow_options = {
     DndPanel, InsertNodeInPolyline, Menu, MiniMap, SelectionSelect, Snapshot,
   ],
 }
-const modeler = useModeler(model, propertiesPanelConfig, container, _logicflow_options)
+const modeler = useModeler(model, propertiesPanelConfig, container, _logicflowOptions)
 const { propertiesPanel } = modeler
 
 async function onResize(e: any) {
@@ -107,8 +107,9 @@ async function onResize(e: any) {
 provide('modeler_context', modeler)
 
 // init
-// onMounted(() => {
-//   // 加载数据
-//   modeler.setData(xml)
-// })
+onMounted(() => {
+  // 加载数据
+  if (model.newData)
+    modeler.setDataObject(model.newData)
+})
 </script>

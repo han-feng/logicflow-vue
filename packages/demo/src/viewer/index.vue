@@ -42,7 +42,7 @@ import { MiniMap } from '@logicflow/extension'
 import '@logicflow/extension/lib/style/index.css'
 import 'highlight.js/styles/stackoverflow-light.css'
 import { useViewer } from 'logicflow-useapi'
-import { provide, ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import models from '../models'
 import Toolbar from './toolbar.vue'
 
@@ -54,13 +54,20 @@ const model = models.find(m => m.name === modelType.value) || models[0]
 
 // Viewer
 const container = ref<HTMLElement>()
-const _logicflow_options = {
+const _logicflowOptions = {
   plugins: [
     MiniMap,
   ],
 }
-const viewer = useViewer(model, container, _logicflow_options)
+const viewer = useViewer(model, container, _logicflowOptions)
 
 // provide context
 provide('viewer_context', viewer)
+
+// init
+onMounted(() => {
+  // 加载数据
+  if (model.newData)
+    viewer.setDataObject(model.newData)
+})
 </script>

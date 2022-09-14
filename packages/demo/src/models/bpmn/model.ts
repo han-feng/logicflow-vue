@@ -1,11 +1,13 @@
 import StartEvent from '@logicflow/extension/es/bpmn/events/StartEvent'
 import SequenceFlow from '@logicflow/extension/es/bpmn/flow/SequenceFlow'
-import Gateway from '@logicflow/extension/es/bpmn/gateways/ExclusiveGateway'
 import type { GraphData, ModelType } from 'logicflow-useapi'
 import { adapterXmlIn, adapterXmlOut } from './adapter'
-import { endIcon, gatewayIcon, serviceTaskIcon, startIcon, userTaskIcon } from './icons'
+import { endIcon, exclusiveGatewayIcon, inclusiveGatewayIcon, parallelGatewayIcon, serviceTaskIcon, startIcon, userTaskIcon } from './icons'
 import newData from './newdata.json'
 import EndEvent from './nodes/EndEvent'
+import ExclusiveGateway from './nodes/ExclusiveGateway'
+import InclusiveGateway from './nodes/InclusiveGateway'
+import ParallelGateway from './nodes/ParallelGateway'
 import ServiceTask from './nodes/ServiceTask'
 import UserTask from './nodes/UserTask'
 import { theme } from './theme'
@@ -53,10 +55,22 @@ export default <ModelType>{
       icon: serviceTaskIcon,
     },
     {
-      ...Gateway,
+      ...ParallelGateway,
       type: 'bpmn:parallelGateway',
-      label: '路由',
-      icon: gatewayIcon,
+      label: '并行网关',
+      icon: parallelGatewayIcon,
+    },
+    {
+      ...ExclusiveGateway,
+      type: 'bpmn:exclusiveGateway',
+      label: '排它网关',
+      icon: exclusiveGatewayIcon,
+    },
+    {
+      ...InclusiveGateway,
+      type: 'bpmn:inclusiveGateway',
+      label: '包含网关',
+      icon: inclusiveGatewayIcon,
     },
   ],
   edgeTypes: [

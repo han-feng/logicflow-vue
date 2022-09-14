@@ -19,9 +19,10 @@ type NodeConfig = {
   y: number
 }
 
-type Point = {
-  x: number
-  y: number
+type Process = {
+  text: string
+  id: string
+  description: string
 }
 
 type EdgeConfig = {
@@ -53,6 +54,14 @@ enum BpmnElements {
   USER = 'bpmn:userTask',
   SYSTEM = 'bpmn:serviceTask',
   FLOW = 'bpmn:sequenceFlow',
+  EGATEWAY = 'bpmn:exclusiveGateway',
+  IGATEWAY = 'bpmn:inclusiveGateway',
+  EVGATEWAY = 'bpmn:eventBasedGateway',
+}
+
+type Point = {
+  x: number
+  y: number
 }
 
 const defaultAttrs = ['-name', '-id', 'bpmn:incoming', 'bpmn:outgoing', '-sourceRef', '-targetRef']
@@ -147,7 +156,15 @@ function convertLf2ProcessData(bpmnProcessData: any, data: any) {
     // @see https://github.com/didi/LogicFlow/issues/325
     // 需要保证incomming在outgoing之前
     if (!targetNode['bpmn:incoming']) {
-      targetNode['bpmn:incoming'] = edge.id
+      if (targetNode['bpmn:outgoing']) {
+        const out = targetNode['bpmn:outgoing']
+        delete targetNode['bpmn:outgoing']
+        targetNode['bpmn:incoming'] = edge.id
+        targetNode['bpmn:outgoing'] = out
+      }
+      else {
+        targetNode['bpmn:incoming'] = edge.id
+      }
     }
     else if (Array.isArray(targetNode['bpmn:incoming'])) {
       targetNode['bpmn:incoming'].push(edge.id)
@@ -213,13 +230,7 @@ function convertLf2DiagramData(bpmnDiagramData: any, data: any) {
     return diagramData
   })
   bpmnDiagramData['bpmndi:BPMNShape'] = data.nodes.map((node: NodeConfig) => {
-    console.log('node--------', node)
     const nodeId = node.id
-    let id = node.properties?.shapeId
-    console.log('id--------', id)
-    if (!id)
-      id = `${nodeId}_di`
-
     let width = 100
     let height = 80
     let { x, y } = node
@@ -233,7 +244,7 @@ function convertLf2DiagramData(bpmnDiagramData: any, data: any) {
     x -= width / 2
     y -= height / 2
     const diagramData: any = {
-      '-id': id,
+      '-id': `${nodeId}_di`,
       '-bpmnElement': nodeId,
       'dc:Bounds': {
         '-x': x,
@@ -265,17 +276,19 @@ function convertBpmn2LfData(bpmnData: any): GraphData {
   let id = ''
   // const type = 'bpmn'
   let text = ''
-  const properties = { 'bpmn:extensionElements': {}, 'isExecutable': false }
+  const properties = { 'bpmn:extensionElements': {}, 'isExecutable': false, 'description': '' }
   const definitions = bpmnData['bpmn:definitions']
   if (definitions) {
     const process = definitions['bpmn:process']
     id = process['-id']
     text = process['-name']
-    // const property = process['bpmn:extensionElements']
-    properties['bpmn:extensionElements'] = process['bpmn:extensionElements'] // getProperties(process['bpmn:extensionElements'])
+    properties['bpmn:extensionElements'] = process['bpmn:extensionElements']
     properties.isExecutable = process['-isExecutable']
+    properties.description = process['bpmn:documentation']
     Object.keys(process).forEach((key) => {
       if (key === 'bpmn:extensionElements') // TODO 添加 bpmn:extensionElements 处理逻辑
+        return
+      if (key === 'bpmn:documentation') // TODO 添加 bpmn:extensionElements 处理逻辑
         return
       if (key.indexOf('bpmn:') === 0) {
         const value = process[key]
@@ -368,7 +381,7 @@ function getNodeConfig(shapeValue: any, type: string, processValue: any) {
       text.y = Number(textBounds['-y']) + Number(textBounds['-height']) / 2
     }
   }
-  properties.shapeId = shapeValue['-id']
+  // properties.shapeId = shapeValue['-id']
   const nodeConfig: NodeConfig = {
     id: shapeValue['-bpmnElement'],
     type,
@@ -465,7 +478,7 @@ const BpmnAdapter = {
       '-id': data?.id || `Process_${getBpmnId()}`,
       '-name': data?.text,
       '-isExecutable': data?.properties.isExecutable || 'false',
-      'bpmn:documentation': data?.properties.doc || '',
+      'bpmn:documentation': data?.properties.description || '',
       'bpmn:extensionElements': data?.properties['bpmn:extensionElements'] || {},
     }
     convertLf2ProcessData(bpmnProcessData, data)
@@ -514,6 +527,18 @@ BpmnAdapter.shapeConfigMap.set(BpmnElements.GATEWAY, {
   width: 50, // ExclusiveGatewayConfig.width,
   height: 50, // ExclusiveGatewayConfig.height,
 })
+BpmnAdapter.shapeConfigMap.set(BpmnElements.EGATEWAY, {
+  width: 50, // ExclusiveGatewayConfig.width,
+  height: 50, // ExclusiveGatewayConfig.height,
+})
+BpmnAdapter.shapeConfigMap.set(BpmnElements.IGATEWAY, {
+  width: 50, // ExclusiveGatewayConfig.width,
+  height: 50, // ExclusiveGatewayConfig.height,
+})
+BpmnAdapter.shapeConfigMap.set(BpmnElements.EVGATEWAY, {
+  width: 50, // ExclusiveGatewayConfig.width,
+  height: 50, // ExclusiveGatewayConfig.height,
+})
 BpmnAdapter.shapeConfigMap.set(BpmnElements.SYSTEM, {
   width: ServiceTaskConfig.width,
   height: ServiceTaskConfig.height,
@@ -531,4 +556,31 @@ export function adapterXmlIn(bpmnData: string): GraphData {
 export function adapterXmlOut(data?: GraphData): string {
   const outData = BpmnAdapter.adapterOut(data)
   return lfJson2Xml(outData)
+}
+
+export function getGraphData(bpmnData: string): Process {
+  const json: string = lfXml2Json(bpmnData)
+  return getProcess(json)
+}
+
+/**
+ * 将bpmn数据转换为LogicFlow内部能识别数据
+ */
+function getProcess(bpmnData: any): Process {
+  let text = ''
+  let id = ''
+  let description = ''
+  const definitions = bpmnData['bpmn:definitions']
+  if (definitions) {
+    const process = definitions['bpmn:process']
+    id = process['-id']
+    text = process['-name']
+    description = process['bpmn:documentation']
+  }
+  return {
+    id,
+    // type,
+    text,
+    description,
+  }
 }

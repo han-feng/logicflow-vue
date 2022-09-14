@@ -1,5 +1,4 @@
 import { join } from 'path'
-import image from '@rollup/plugin-image'
 import vue from '@vitejs/plugin-vue'
 import visualizer from 'rollup-plugin-visualizer'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
@@ -7,6 +6,7 @@ import components from 'unplugin-vue-components/vite'
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 import { createStyleImportPlugin } from 'vite-plugin-style-import'
+import image from './script/img2b64.js'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -15,7 +15,7 @@ export default defineConfig(({ command, mode }) => {
     base: './',
     plugins: [
       vue(),
-      image(),
+      image() as any,
       splitVendorChunkPlugin(),
       createStyleImportPlugin({
         libs: [
