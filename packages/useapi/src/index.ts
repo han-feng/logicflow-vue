@@ -1,10 +1,9 @@
 import type { PointTuple, TextConfig } from '@logicflow/core'
 import LogicFlow from '@logicflow/core'
-// import { cloneDeep } from 'lodash-es'
-import type { Ref } from 'vue'
-import { computed, inject, nextTick, onActivated, onDeactivated, onMounted, provide, reactive, ref, shallowReactive, watch } from 'vue'
 import { throttle } from 'lodash-es'
 import { addListener } from 'resize-detector'
+import type { Ref } from 'vue'
+import { computed, inject, nextTick, onActivated, onDeactivated, onMounted, provide, reactive, ref, shallowReactive, watch } from 'vue'
 import ProcessNode from './ProcessNode'
 import type { GraphData, GraphModelData, ModelType, ModelerContext, PropertiesPanelConfig, PropertiesPanelContext, PropertiesPanelData, PropertiesPanelView, ViewerContext } from './types'
 
@@ -87,7 +86,6 @@ function createViewer(modelType: ModelType): ViewerContext {
     },
 
     getDataObject(): GraphData | undefined {
-      // const data0 = cloneDeep(toRaw(viewer.graphData)) // 防止副作用
       const rawData = viewer.lf?.getGraphRawData() // getGraphRawData()已进行了deepClone
       const pnode = rawData?.nodes[0]
       if (pnode?.type === ProcessNodeType) {
@@ -331,7 +329,11 @@ export function useModeler(model: ModelType, propertiesPanelConfig: PropertiesPa
     modeler.lf?.on('history:change', ({ data }: any) => {
       setUndoState(data)
       setModified(true)
-      // TODO: 处理 propertiesPanel 数据更新
+      // 处理 propertiesPanel 数据更新
+      if (_ctx.selectedModel) {
+        const _id = _ctx.selectedModel.id
+        _ctx.selectedModel = modeler.lf?.getModelById(_id)
+      }
     })
 
     if (propertiesPanelConfig) {
@@ -480,4 +482,3 @@ export function usePropertiesPanelData(onDataChange = async (_data: any) => { })
 }
 
 export * from './types'
-
