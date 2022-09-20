@@ -1,6 +1,6 @@
 {
   "name": "logicflow-vue",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "packageManager": "pnpm@7.1.0",
   "description": "Logic Flow Vue",
