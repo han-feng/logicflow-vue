@@ -3,7 +3,7 @@
     <a-col>
       <a-card hoverable style="width: 320px">
         <template #cover>
-          <img alt="bpmn" src="/img/bpmn.png" />
+          <img alt="bpmn" :src="bpmnImage">
         </template>
         <template #actions>
           <a-button type="link" href="./viewer.html">
@@ -19,14 +19,13 @@
             </template>
           </a-button>
         </template>
-        <a-card-meta title="BPMN" description="BPMN 2.0 模型的简化版本">
-        </a-card-meta>
+        <a-card-meta title="BPMN" description="BPMN 2.0 模型的简化版本" />
       </a-card>
     </a-col>
     <a-col>
       <a-card hoverable style="width: 320px">
         <template #cover>
-          <img alt="Node-RED" src="/img/nodeRed.png" />
+          <img alt="Node-RED" :src="nodeRedImage">
         </template>
         <template #actions>
           <a-button type="link" href="./viewer.html?modelType=nodeRed">
@@ -51,3 +50,8 @@
     </a-col>
   </a-row>
 </template>
+
+<script setup lang="ts">
+import bpmnImage from './img/bpmn.png'
+import nodeRedImage from './img/nodeRed.png'
+</script>

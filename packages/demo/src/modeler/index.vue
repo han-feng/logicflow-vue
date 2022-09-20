@@ -1,22 +1,25 @@
 <template>
   <a-layout style="height: 100%; width: 100%; margin: 0; overflow: hidden">
     <a-layout-header style="background: #fff; height: 42px;line-height: 32px; padding: 5px 10px">
-      <toolbar />
+      <Toolbar />
     </a-layout-header>
     <a-layout-content>
-      <splitpanes class="default-theme" @resized="onResize" :dbl-click-splitter="false" :push-other-panes="false">
-        <pane :size="propertiesPanel.collapsed ? 100 - paneSize / 100 : 100 - paneSize">
-          <div ref="container"
-            style="height: 100%; width: 100%;padding: 4px;box-shadow: 0 0 4px rgb(0 0 0 / 30%) inset; background: #fff">
-          </div>
-        </pane>
-        <pane :size="propertiesPanel.collapsed ? paneSize / 100 : paneSize" v-show="!propertiesPanel.collapsed"
-          style="padding: 10px;background-color: #f8f8f8;overflow: hidden auto">
+      <Splitpanes class="default-theme" :dbl-click-splitter="false" :push-other-panes="false" @resized="onResize">
+        <Pane :size="propertiesPanel.collapsed ? 100 - paneSize / 100 : 100 - paneSize">
+          <div
+            ref="container"
+            style="height: 100%; width: 100%;padding: 4px;box-shadow: 0 0 4px rgb(0 0 0 / 30%) inset; background: #fff"
+          />
+        </Pane>
+        <Pane
+          v-show="!propertiesPanel.collapsed" :size="propertiesPanel.collapsed ? paneSize / 100 : paneSize"
+          style="padding: 10px;background-color: #f8f8f8;overflow: hidden auto"
+        >
           <keep-alive>
             <component :is="propertiesPanel.component" />
           </keep-alive>
-        </pane>
-      </splitpanes>
+        </Pane>
+      </Splitpanes>
     </a-layout-content>
   </a-layout>
 </template>
@@ -42,16 +45,15 @@
 </style>
 
 <script setup lang="ts">
-import { Definition } from '@logicflow/core'
 import '@logicflow/core/dist/style/index.css'
 import { DndPanel, InsertNodeInPolyline, Menu, MiniMap, SelectionSelect, Snapshot } from '@logicflow/extension'
 import '@logicflow/extension/lib/style/index.css'
 import 'highlight.js/styles/stackoverflow-light.css'
-import { PropertiesPanelConfig, useModeler } from 'logicflow-useapi'
-import { addListener } from 'resize-detector'
+import type { PropertiesPanelConfig } from 'logicflow-useapi'
+import { useModeler } from 'logicflow-useapi'
 import { Pane, Splitpanes } from 'splitpanes'
 import 'splitpanes/dist/splitpanes.css'
-import { nextTick, onMounted, provide, ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import models from '../models'
 import propertiesPanelConfigs from '../models/propertiesPanel'
 import Toolbar from './toolbar.vue'
@@ -66,18 +68,33 @@ const model = models.find(m => m.name === modelType.value) || models[0]
 const propertiesPanelConfig: PropertiesPanelConfig = propertiesPanelConfigs[model.name]
 
 // Modeler
-const modeler = useModeler(model, propertiesPanelConfig)
+const _logicflowOptions = {
+  adjustEdgeStartAndEnd: true,
+  // nodeTextDraggable: true,
+  edgeTextDraggable: true,
+  multipleSelectKey: 'meta',
+  grid: {
+    size: 5, // 栅格
+    visible: false, // 是否可见，false则隐藏网格线但是保留栅格效果
+  },
+  style: {
+    nodeText: {
+      overflowMode: 'autoWrap',
+    },
+  },
+  keyboard: {
+    enabled: true,
+  },
+  plugins: [
+    DndPanel, InsertNodeInPolyline, Menu, MiniMap, SelectionSelect, Snapshot,
+  ],
+}
+const modeler = useModeler(model, propertiesPanelConfig, container, _logicflowOptions)
 const { propertiesPanel } = modeler
 
-function containerResize() {
-  if (container.value && modeler.lf) {
-    const { width, height } = container.value.getBoundingClientRect()
-    modeler.lf.resize(width - 8, height - 8)
-  }
-}
-
 async function onResize(e: any) {
-  if (!container.value || !modeler.lf) return
+  if (!container.value || !modeler.lf)
+    return
   // console.log('onResize', e, modeler.lf.graphModel.width)
   if (e[1] && e[1].size) {
     const size = e[1].size
@@ -91,41 +108,8 @@ provide('modeler_context', modeler)
 
 // init
 onMounted(() => {
-  if (!container.value) {
-    console.log('error container is null')
-    return
-  }
-  const _logicflow_options: Definition = {
-    container: container.value,
-    adjustEdgeStartAndEnd: true,
-    // nodeTextDraggable: true,
-    edgeTextDraggable: true,
-    multipleSelectKey: 'meta',
-    style: {
-      nodeText: {
-        overflowMode: 'autoWrap'
-      },
-    },
-    keyboard: {
-      enabled: true,
-    },
-    plugins: [
-      DndPanel, InsertNodeInPolyline, Menu, MiniMap, SelectionSelect, Snapshot
-    ]
-  }
-  modeler.initLogicFlow(_logicflow_options)
-
-  // 探测 container 大小改变
-  let _listenerRunning = false
-  addListener(container.value, () => {
-    if (_listenerRunning) return
-    _listenerRunning = true
-    // 减少短时间重复调用
-    setTimeout(async () => {
-      _listenerRunning = false
-      await nextTick()
-      containerResize()
-    }, 500)
-  })
+  // 加载数据
+  if (model.newData)
+    modeler.setDataObject(model.newData)
 })
 </script>

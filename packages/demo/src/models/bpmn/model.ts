@@ -1,14 +1,16 @@
-import StartEvent from '@logicflow/extension/es/bpmn/events/StartEvent';
-import SequenceFlow from '@logicflow/extension/es/bpmn/flow/SequenceFlow';
-import Gateway from '@logicflow/extension/es/bpmn/gateways/ExclusiveGateway';
-import { GraphData, ModelType } from 'logicflow-useapi';
-import { adapterXmlIn, adapterXmlOut } from './adapter';
-import { endIcon, gatewayIcon, serviceTaskIcon, startIcon, userTaskIcon } from './icons';
-import newData from './newdata.json';
-import EndEvent from './nodes/EndEvent';
-import ServiceTask from './nodes/ServiceTask';
-import UserTask from './nodes/UserTask';
-import { theme } from './theme';
+import StartEvent from '@logicflow/extension/es/bpmn/events/StartEvent'
+import SequenceFlow from '@logicflow/extension/es/bpmn/flow/SequenceFlow'
+import type { GraphData, ModelType } from 'logicflow-useapi'
+import { adapterXmlIn, adapterXmlOut } from './adapter'
+import { endIcon, exclusiveGatewayIcon, inclusiveGatewayIcon, parallelGatewayIcon, serviceTaskIcon, startIcon, userTaskIcon } from './icons'
+import newData from './newdata.json'
+import EndEvent from './nodes/EndEvent'
+import ExclusiveGateway from './nodes/ExclusiveGateway'
+import InclusiveGateway from './nodes/InclusiveGateway'
+import ParallelGateway from './nodes/ParallelGateway'
+import ServiceTask from './nodes/ServiceTask'
+import UserTask from './nodes/UserTask'
+import { theme } from './theme'
 
 const key = 'bpmn'
 
@@ -18,48 +20,61 @@ export default <ModelType>{
   defaultEdgeType: SequenceFlow.type,
   theme,
   adapters: {
-    'default': {
+    default: {
       label: 'BPMN',
       extension: 'xml',
       in(src: string): GraphData {
         return {
-          ...adapterXmlIn(src)
+          ...adapterXmlIn(src),
         }
       },
       out(data) {
         return adapterXmlOut(data)
-      }
-    }
+      },
+    },
   },
   nodeTypes: [
     {
       ...StartEvent,
       label: '开始',
-      icon: startIcon
+      icon: startIcon,
     },
     {
       ...EndEvent,
       label: '结束',
-      icon: endIcon
+      icon: endIcon,
     },
     {
       ...UserTask,
       label: '用户任务',
-      icon: userTaskIcon
+      icon: userTaskIcon,
     },
     {
       ...ServiceTask,
       label: '系统任务',
-      icon: serviceTaskIcon
+      icon: serviceTaskIcon,
     },
     {
-      ...Gateway,
-      label: '路由',
-      icon: gatewayIcon
-    }
+      ...ParallelGateway,
+      type: 'bpmn:parallelGateway',
+      label: '并行网关',
+      icon: parallelGatewayIcon,
+    },
+    {
+      ...ExclusiveGateway,
+      type: 'bpmn:exclusiveGateway',
+      label: '排它网关',
+      icon: exclusiveGatewayIcon,
+    },
+    {
+      ...InclusiveGateway,
+      type: 'bpmn:inclusiveGateway',
+      label: '包含网关',
+      icon: inclusiveGatewayIcon,
+    },
   ],
   edgeTypes: [
-    SequenceFlow
+    SequenceFlow,
   ],
-  newData
+  newData,
 }

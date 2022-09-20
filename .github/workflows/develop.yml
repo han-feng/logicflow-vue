@@ -60,3 +60,4 @@ jobs:
           folder: packages/demo/dist
           token: ${{ secrets.ACCESS_TOKEN }}
           clean: true
+          single-commit: true

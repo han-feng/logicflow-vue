@@ -1,5 +1,5 @@
-import { BaseEdgeModel, BaseNodeModel, Definition, GraphConfigData, LogicFlow } from '@logicflow/core';
-import { DefineComponent, Ref, ShallowReactive } from 'vue';
+import type { BaseEdgeModel, BaseNodeModel, GraphConfigData, LogicFlow } from '@logicflow/core'
+import type { DefineComponent, Ref, ShallowReactive } from 'vue'
 
 export type NodeType = {
   type: string
@@ -36,7 +36,7 @@ export type ModelType = {
   newData?: GraphData
   adapters?: Record<string, Adapter>
   plugins?: any[]
-  init?: (lf: LogicFlow) => void  // 初始化
+  init?: (lf: LogicFlow) => void // 初始化
 }
 
 export type PropertiesPanelConfig = {
@@ -55,9 +55,9 @@ export type PropertiesPanelConfig = {
 }
 
 export type PropertiesPanelView = {
-  component?: DefineComponent<{}, {}, any>,
-  collapsed: boolean,
-  disabled: boolean,
+  component?: DefineComponent<{}, {}, any>
+  collapsed: boolean
+  disabled: boolean
   toggleCollapsed(): void
 }
 
@@ -68,16 +68,16 @@ export type PropertiesPanelContext = {
 }
 
 export type PropertiesPanelData = {
-  id: string,
-  type: string,
-  text: string,
-  properties: Record<string, any>,
+  id: string
+  type: string
+  text: string
+  properties: Record<string, any>
 }
 
 export type GraphModelData = {
-  id: string,
-  type: string,
-  text: string,
+  id: string
+  // type: string
+  text: string
   properties: Record<string, any>
 }
 
@@ -85,12 +85,14 @@ export type GraphData = GraphConfigData & GraphModelData
 
 export type ViewerContext = {
   lf?: LogicFlow
-  initLogicFlow(logicflowOptions: Definition): void
+  // initLogicFlow(logicflowOptions: Definition): void
 
   modelType: ModelType
 
-  graphData: GraphModelData
+  // graphData: GraphModelData
 
+  setDataObject(graphData: GraphData): void
+  setData(graphData: string, adapterKey?: string): void
   getDataObject(): GraphData | undefined
   getData(adapterKey?: string): string
   exportData(filename: string, adapterKey?: string): void
@@ -100,8 +102,8 @@ export type ViewerContext = {
   toggleMiniMap(): void
 
   scale: {
-    value: number;
-    percentage: string;
+    value: number
+    percentage: string
   }
   zoomOut(): void
   zoomIn(): void

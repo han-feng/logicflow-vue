@@ -1,5 +1,4 @@
 describe('basic', () => {
-
   // beforeEach(() => {
   //   cy.visit('/')
   // })
@@ -48,7 +47,6 @@ describe('basic', () => {
     cy.get('button#export').click()
     cy.get('li[data-menu-id="png"]').click()
   })
-
 })
 
-export { }
+export default {}
