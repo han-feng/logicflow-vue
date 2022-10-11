@@ -1,16 +1,17 @@
-import { HtmlNode, HtmlNodeModel } from "@logicflow/core";
-import { createApp } from 'vue';
-import VueNode from './VueNode.vue';
+import { HtmlNode, HtmlNodeModel } from '@logicflow/core'
+import { createApp } from 'vue'
+import VueNode from './VueNode.vue'
 
 class VueHtmlNode extends HtmlNode {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.app = createApp(VueNode)
   }
+
   setHtml(rootEl) {
     const node = document.createElement('div')
-    const { model, graphModel } = this.props;
-    const properties = model.getProperties();
+    const { model, graphModel } = this.props
+    const properties = model.getProperties()
     rootEl.appendChild(node)
     if (!this.isMounted) {
       this.app.mount(node)
@@ -18,11 +19,12 @@ class VueHtmlNode extends HtmlNode {
       this.app._instance.emitsOptions['btn:click'] = (val) => {
         graphModel.eventCenter.emit('vue-node:click', {
           id: model.id,
-          val
+          val,
         })
       }
       this.isMounted = true
-    } else {
+    }
+    else {
       this.app._instance.props.properties = properties
     }
   }
@@ -30,16 +32,18 @@ class VueHtmlNode extends HtmlNode {
 
 class VueHtmlNodeModel extends HtmlNodeModel {
   setAttributes() {
-    this.width = 300;
-    this.height = 32;
-    this.text.editable = false;
+    this.width = 300
+    this.height = 32
+    this.text.editable = false
   }
+
   getOutlineStyle() {
-    const style = super.getOutlineStyle();
-    style.stroke = 'none';
-    style.hover.stroke = 'none';
-    return style;
+    const style = super.getOutlineStyle()
+    style.stroke = 'none'
+    style.hover.stroke = 'none'
+    return style
   }
+
   getDefaultAnchor() {
     return []
   }
@@ -49,5 +53,5 @@ export default {
   type: 'vue-html',
   label: 'Vue HTML Node',
   model: VueHtmlNodeModel,
-  view: VueHtmlNode
+  view: VueHtmlNode,
 }

@@ -1,9 +1,9 @@
 {
   "name": "logicflow-vue-demo",
-  "version": "0.4.0",
-  "description": "Logic Flow Vue Demo",
+  "version": "0.5.0",
   "private": true,
   "packageManager": "pnpm@7.1.0",
+  "description": "Logic Flow Vue Demo",
   "scripts": {
     "all": "pnpm clean && pnpm build",
     "dev": "vite",
@@ -18,35 +18,36 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "@highlightjs/vue-plugin": "^2.1.0",
-    "@logicflow/core": "^1.1.28",
-    "@logicflow/extension": "^1.1.28",
-    "ant-design-vue": "^3.2.12",
+    "@logicflow/core": "^1.1.29",
+    "@logicflow/extension": "^1.1.29",
+    "ant-design-vue": "^3.2.13",
     "consola": "^2.15.3",
     "highlight.js": "^11.6.0",
     "ids": "^1.0.0",
     "lodash-es": "^4.17.21",
+    "logicflow-bpmn": "workspace:^",
     "logicflow-useapi": "workspace:^",
     "resize-detector": "^0.3.0",
     "splitpanes": "^3.1.1",
-    "vue": "^3.2.39"
-  },
-  "devDependencies": {
-    "@types/node": "^18.7.18",
-    "@types/splitpanes": "^2.2.1",
-    "@vitejs/plugin-vue": "^3.1.0",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.79.0",
-    "rollup-plugin-visualizer": "^5.8.1",
-    "typescript": "^4.8.3",
-    "unplugin-vue-components": "^0.22.7",
-    "vite": "^3.1.3",
-    "vite-plugin-resolve-externals": "^0.2.2",
-    "vite-plugin-style-import": "^2.0.0",
-    "vue-tsc": "^0.40.13"
+    "vue": "^3.2.40"
   },
   "optionalDependencies": {
-    "cypress": "^10.8.0",
+    "cypress": "^10.9.0",
     "jimp": "^0.16.2",
     "start-server-and-test": "^1.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.4",
+    "@types/splitpanes": "^2.2.1",
+    "@vitejs/plugin-vue": "^3.1.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.79.1",
+    "rollup-plugin-visualizer": "^5.8.2",
+    "typescript": "^4.8.4",
+    "unplugin-vue-components": "^0.22.8",
+    "vite": "^3.1.7",
+    "vite-plugin-resolve-externals": "^0.2.2",
+    "vite-plugin-style-import": "^2.0.0",
+    "vue-tsc": "^1.0.3"
   }
 }

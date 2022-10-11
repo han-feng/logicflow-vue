@@ -1,9 +1,6 @@
 <template>
-  <h1>{{ title }}</h1>
+  <h1>开始</h1>
   <a-form layout="vertical" class="properties-panel-form" :model="data" name="ppform">
-    <a-form-item label="编号" extra="唯一标识">
-      <a-input v-model:value="data.type" />
-    </a-form-item>
     <a-form-item label="编号" extra="唯一标识">
       <a-input v-model:value="data.id" />
     </a-form-item>
@@ -21,8 +18,6 @@
 
 <script setup lang="ts">
 import { usePropertiesPanelData } from 'logicflow-useapi'
-import { ref } from 'vue'
 import './style.css'
 const data = usePropertiesPanelData()
-const title = ref('开始节点')
 </script>

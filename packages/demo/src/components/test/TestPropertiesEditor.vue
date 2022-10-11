@@ -10,15 +10,15 @@
 </template>
 
 <script setup lang="ts">
-import highlightjs from "@highlightjs/vue-plugin";
-import hljs from 'highlight.js/lib/core';
-import json from 'highlight.js/lib/languages/json';
-import xml from 'highlight.js/lib/languages/xml';
-import 'highlight.js/styles/stackoverflow-light.css';
-import { reactive } from 'vue';
+import highlightjs from '@highlightjs/vue-plugin'
+import hljs from 'highlight.js/lib/core'
+import json from 'highlight.js/lib/languages/json'
+import xml from 'highlight.js/lib/languages/xml'
+import 'highlight.js/styles/stackoverflow-light.css'
+import { reactive } from 'vue'
 
-hljs.registerLanguage('json', json);
-hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('json', json)
+hljs.registerLanguage('xml', xml)
 const highlight = highlightjs.component
 
 const data = reactive<{
@@ -28,7 +28,7 @@ const data = reactive<{
     'key.test1': 'value.test1',
     'key.test2': 'value.test2',
     'key.test3': 'value.test3',
-    'key1': 'value1'
-  }
+    'key1': 'value1',
+  },
 })
 </script>

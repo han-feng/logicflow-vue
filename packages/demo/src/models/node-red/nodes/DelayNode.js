@@ -1,19 +1,19 @@
-import { h } from '@logicflow/core';
-import { delayIcon as Icon } from "../icons";
-import BaseNode from "./BaseNode";
+import { h } from '@logicflow/core'
+import { delayIcon as Icon } from '../icons'
+import BaseNode from './BaseNode'
 
 class DelayNode extends BaseNode.view {
   getIcon() {
     const {
       width,
       height,
-    } = this.props.model;
+    } = this.props.model
     return h('image', {
       width: 30,
       height: 30,
-      x: - width / 2,
-      y: - height / 2,
-      href: Icon
+      x: -width / 2,
+      y: -height / 2,
+      href: Icon,
     })
   }
 }
@@ -21,7 +21,7 @@ class DelayNode extends BaseNode.view {
 class DelayNodeModel extends BaseNode.model {
   getNodeStyle() {
     const style = super.getNodeStyle()
-    style.fill = 'rgb(230, 224, 248)';
+    style.fill = 'rgb(230, 224, 248)'
     return style
   }
 }
@@ -31,5 +31,5 @@ export default {
   text: 'delay',
   icon: Icon,
   model: DelayNodeModel,
-  view: DelayNode
+  view: DelayNode,
 }

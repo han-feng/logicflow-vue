@@ -1,6 +1,9 @@
+<!-- eslint-disable vue/custom-event-name-casing -->
 <template>
   <div class="demo-collapse">
-    <a-button @click="$emit('btn:click', properties.t)">vue_html_node: click_me_{{properties.t}}</a-button>
+    <a-button @click="$emit('btn:click', properties.t)">
+      vue_html_node: click_me_{{ properties.t }}
+    </a-button>
   </div>
 </template>
 
@@ -10,13 +13,14 @@ export default {
     properties: {
       type: Object,
       default: () => ({
-        t: 1
-      })
+        t: 1,
+      }),
     },
   },
-  emits: ['btn:click']
+  emits: ['btn:click'],
 }
 </script>
+
 <style scoped>
 
 </style>

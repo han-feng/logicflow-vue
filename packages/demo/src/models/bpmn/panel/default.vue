@@ -1,5 +1,5 @@
 <template>
-  <h1>{{ title }}</h1>
+  <h1>属性</h1>
   <a-form layout="vertical" class="properties-panel-form" :model="data" name="ppform">
     <a-form-item label="类型">
       <a-input v-model:value="data.type" />
@@ -21,9 +21,7 @@
 
 <script setup lang="ts">
 import { usePropertiesPanelData } from 'logicflow-useapi'
-import { ref } from 'vue'
 import './style.css'
 
 const data = usePropertiesPanelData()
-const title = ref('Default Properties Panel')
 </script>
