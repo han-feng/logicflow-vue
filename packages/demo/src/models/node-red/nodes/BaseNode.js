@@ -1,6 +1,5 @@
-import { h, RectNode, RectNodeModel } from "@logicflow/core";
-import { getBytesLength } from '../util';
-
+import { RectNode, RectNodeModel, h } from '@logicflow/core'
+import { getBytesLength } from '../util'
 
 class RedNodeModel extends RectNodeModel {
   /**
@@ -8,70 +7,75 @@ class RedNodeModel extends RectNodeModel {
    */
   initNodeData(data) {
     super.initNodeData(data)
-    this.width = 100;
-    this.height = 30;
-    this.radius = 5;
-    this.text.editable = false;
-    this.text.x = this.x + 10;
-    this.iconPosition = ''; // icon位置，left表示左边，'right'表示右边
+    this.width = 100
+    this.height = 30
+    this.radius = 5
+    this.text.editable = false
+    this.text.x = this.x + 10
+    this.iconPosition = '' // icon位置，left表示左边，'right'表示右边
   }
+
   /**
    * 动态设置初始化数据
    */
   setAttributes() {
     if (this.text.value) {
-      let width = 30 + getBytesLength(this.text.value) * 9;
-      width = Math.ceil(width / 20) * 20;
-      if (width < 100) {
-        width = 100;
-      }
-      this.width = width;
+      let width = 30 + getBytesLength(this.text.value) * 9
+      width = Math.ceil(width / 20) * 20
+      if (width < 100)
+        width = 100
+
+      this.width = width
     }
   }
+
   /**
    * 重写节点样式
    */
   getNodeStyle() {
-    const style = super.getNodeStyle();
-    style.fill = '#a6bbcf';
+    const style = super.getNodeStyle()
+    style.fill = '#a6bbcf'
     if (this.isSelected) {
-      style.strokeWidth = 2;
-      style.stroke = '#ff7f0e';
-    } else {
-      style.strokeWidth = 1;
-      style.stroke = '#999';
+      style.strokeWidth = 2
+      style.stroke = '#ff7f0e'
     }
-    return style;
+    else {
+      style.strokeWidth = 1
+      style.stroke = '#999'
+    }
+    return style
   }
+
   /**
    * 重写定义锚点
    */
   getDefaultAnchor() {
-    const { x, y, id, width, height } = this;
+    const { x, y, id, width } = this
     const anchors = [
       {
         x: x + width / 2,
-        y: y,
+        y,
         id: `${id}_right`,
-        type: "right"
+        type: 'right',
       },
       {
         x: x - width / 2,
-        y: y,
+        y,
         id: `${id}_left`,
-        type: "left"
-      }
-    ];
-    return anchors;
+        type: 'left',
+      },
+    ]
+    return anchors
   }
+
   /**
    *
    */
   getOutlineStyle() {
-    const style = super.getOutlineStyle();
-    style.stroke = 'transparent';
-    style.hover.stroke = 'transparent';
-    return style;
+    const style = super.getOutlineStyle()
+    style.stroke = 'transparent'
+    style.hover.stroke = 'transparent'
+    return style
   }
 }
 class RedNode extends RectNode {
@@ -80,32 +84,33 @@ class RedNode extends RectNode {
    * 重写锚点新增
    */
   getAnchorShape(anchorData) {
-    const { x, y, type } = anchorData;
-    return h("rect", {
+    const { x, y } = anchorData
+    return h('rect', {
       x: x - 5,
       y: y - 5,
       width: 10,
       height: 10,
-      className: 'custom-anchor'
-    });
+      className: 'custom-anchor',
+    })
   }
-  getIcon () {
-    return null;
+
+  getIcon() {
+    return null
   }
+
   getShape() {
     const {
-      text,
       x,
       y,
       width,
       height,
-      radius
-    } = this.props.model;
+      radius,
+    } = this.props.model
     const style = this.props.model.getNodeStyle()
     return h(
       'g',
       {
-        className: 'lf-red-node'
+        className: 'lf-red-node',
       },
       [
         h('rect', {
@@ -115,15 +120,15 @@ class RedNode extends RectNode {
           width,
           height,
           rx: radius,
-          ry: radius
+          ry: radius,
         }),
         h('g', {
           style: 'pointer-events: none;',
-          transform: `translate(${x}, ${y})`
+          transform: `translate(${x}, ${y})`,
         }, [
           h('rect', {
-            x: - width / 2,
-            y: - height / 2,
+            x: -width / 2,
+            y: -height / 2,
             width: 30,
             height: 30,
             fill: '#000',
@@ -132,20 +137,19 @@ class RedNode extends RectNode {
           }),
           this.getIcon(),
           h('path', {
-            d: `M ${30 - width / 2} ${1 -height / 2 } l 0 28`,
+            d: `M ${30 - width / 2} ${1 - height / 2} l 0 28`,
             stroke: '#000',
             strokeOpacity: 0.1,
-            strokeWidth: 1
-          })
-        ])
-      ]
+            strokeWidth: 1,
+          }),
+        ]),
+      ],
     )
   }
 }
 
-
 export default {
   type: 'red-node',
   model: RedNodeModel,
-  view: RedNode
+  view: RedNode,
 }

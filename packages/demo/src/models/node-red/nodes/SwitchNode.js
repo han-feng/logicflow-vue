@@ -1,19 +1,19 @@
-import { h } from '@logicflow/core';
-import { switchIcon as Icon } from "../icons";
-import BaseNode from "./BaseNode";
+import { h } from '@logicflow/core'
+import { switchIcon as Icon } from '../icons'
+import BaseNode from './BaseNode'
 
 class SwitchNode extends BaseNode.view {
   getIcon() {
     const {
       width,
       height,
-    } = this.props.model;
+    } = this.props.model
     return h('image', {
       width: 30,
       height: 30,
-      x: - width / 2,
-      y: - height / 2,
-      href: Icon
+      x: -width / 2,
+      y: -height / 2,
+      href: Icon,
     })
   }
 }
@@ -21,7 +21,7 @@ class SwitchNode extends BaseNode.view {
 class SwitchNodeModel extends BaseNode.model {
   getNodeStyle() {
     const style = super.getNodeStyle()
-    style.fill = 'rgb(226, 217, 110)';
+    style.fill = 'rgb(226, 217, 110)'
     return style
   }
 }
@@ -31,5 +31,5 @@ export default {
   text: 'switch',
   icon: Icon,
   model: SwitchNodeModel,
-  view: SwitchNode
+  view: SwitchNode,
 }

@@ -1,8 +1,8 @@
 {
-  "name": "logicflow-useapi",
+  "name": "logicflow-bpmn",
   "type": "module",
   "version": "0.5.0",
-  "description": "Logic Flow Vue use API",
+  "description": "Logic Flow BPMN Model",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,18 +10,16 @@
   },
   "keywords": [
     "LogicFlow",
-    "Vue 3",
-    "Use API",
-    "Composition API"
+    "BPMN"
   ],
   "exports": {
     ".": {
-      "require": "./dist/logicflow-useapi.umd.cjs",
-      "import": "./dist/logicflow-useapi.js"
+      "require": "./dist/logicflow-bpmn.umd.cjs",
+      "import": "./dist/logicflow-bpmn.js"
     }
   },
-  "main": "dist/logicflow-useapi.umd.cjs",
-  "module": "dist/logicflow-useapi.js",
+  "main": "dist/logicflow-bpmn.umd.cjs",
+  "module": "dist/logicflow-bpmn.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -34,17 +32,18 @@
   },
   "peerDependencies": {
     "@logicflow/core": ">=1.1.10",
-    "lodash-es": ">=4.10.0",
+    "@logicflow/extension": ">=1.1.10",
     "vue": ">=3.2.0"
   },
   "dependencies": {
     "@logicflow/core": "^1.1.29",
-    "lodash-es": "^4.17.21",
+    "@logicflow/extension": "^1.1.29",
+    "logicflow-useapi": "workspace:^",
     "resize-detector": "^0.3.0",
     "vue": "^3.2.40"
   },
   "devDependencies": {
-    "@types/lodash-es": "^4.17.6",
+    "@rollup/pluginutils": "^5.0.0",
     "@types/node": "^18.8.4",
     "rimraf": "^3.0.2",
     "rollup": "^2.79.1",

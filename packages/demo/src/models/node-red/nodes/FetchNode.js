@@ -1,19 +1,19 @@
-import { h } from '@logicflow/core';
-import { fetchIcon as Icon } from "../icons";
-import BaseNode from "./BaseNode";
+import { h } from '@logicflow/core'
+import { fetchIcon as Icon } from '../icons'
+import BaseNode from './BaseNode'
 
 class FetchNode extends BaseNode.view {
   getIcon() {
     const {
       width,
       height,
-    } = this.props.model;
+    } = this.props.model
     return h('image', {
       width: 30,
       height: 30,
-      x: - width / 2,
-      y: - height / 2,
-      href: Icon
+      x: -width / 2,
+      y: -height / 2,
+      href: Icon,
     })
   }
 }
@@ -21,7 +21,7 @@ class FetchNode extends BaseNode.view {
 class FetchNodeModel extends BaseNode.model {
   getNodeStyle() {
     const style = super.getNodeStyle()
-    style.fill = 'rgb(231, 231, 174)';
+    style.fill = 'rgb(231, 231, 174)'
     return style
   }
 }
@@ -31,5 +31,5 @@ export default {
   text: 'fecth',
   icon: Icon,
   model: FetchNodeModel,
-  view: FetchNode
+  view: FetchNode,
 }

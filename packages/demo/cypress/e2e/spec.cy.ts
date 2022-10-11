@@ -31,6 +31,9 @@ describe('basic', () => {
 
     cy.get('button#export').click()
     cy.get('li[data-menu-id="png"]').click()
+
+    cy.get('button#export').click()
+    cy.get('li[data-menu-id="default"]').click()
   })
 
   it('NodeRed', () => {
