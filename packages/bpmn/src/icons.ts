@@ -5,5 +5,15 @@ import exclusiveGatewayIcon from './icon/exclusiveGateway.svg'
 import inclusiveGatewayIcon from './icon/inclusiveGateway.svg'
 import serviceTaskIcon from './icon/serviceTask.svg'
 import userTaskIcon from './icon/userTask.svg'
+import ruleTaskIcon from './icon/ruleTask.svg'
 
-export { startIcon, endIcon, parallelGatewayIcon, exclusiveGatewayIcon, inclusiveGatewayIcon, serviceTaskIcon, userTaskIcon }
+export {
+  startIcon,
+  endIcon,
+  parallelGatewayIcon,
+  exclusiveGatewayIcon,
+  inclusiveGatewayIcon,
+  serviceTaskIcon,
+  userTaskIcon,
+  ruleTaskIcon,
+}
