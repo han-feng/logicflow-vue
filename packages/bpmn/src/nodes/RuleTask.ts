@@ -1,30 +1,23 @@
-import type { GraphModel, NodeConfig } from '@logicflow/core'
-import { RectNode, RectNodeModel, h } from '@logicflow/core'
-import { getBpmnId } from '@logicflow/extension/es/bpmn/getBpmnId'
+import { h } from '@logicflow/core'
+import { BaseTaskModel, BaseTaskView } from './BaseTask'
 
-class RuleTaskModel extends RectNodeModel {
+class RuleTaskModel extends BaseTaskModel {
   static extendKey = 'RuleTaskModel'
-  constructor(data: NodeConfig, graphModel: GraphModel) {
-    if (!data.id)
-      data.id = `Activity_${getBpmnId()}`
-
-    super(data, graphModel)
-  }
 }
 
-class RuleTaskView extends RectNode {
+class RuleTaskView extends BaseTaskView {
   static extendKey = 'RuleTaskNode'
-  getLabelShape(): any {
+  getLabelShape(): h.JSX.Element | undefined {
     const { model } = this.props
     const { x, y, width, height } = model
     const style = model.getNodeStyle()
     return h(
       'svg',
       {
-        x: x - width / 2 + 2,
-        y: y - height / 2 + 2,
-        width: 28,
-        height: 28,
+        x: x - width / 2 + 4,
+        y: y - height / 2 + 4,
+        width: 24,
+        height: 24,
         viewBox: '0 0 1024 1024',
       },
       h('path', {
@@ -33,24 +26,6 @@ class RuleTaskView extends RectNode {
           'M91.19 196.096v631.808h841.62V196.096H91.19zm35.84 214.016h162.25v176.351H127.03V410.112zm198.09 0h571.85v176.351H325.12V410.112zM127.03 622.303h162.25v169.761H127.03v-169.76zm198.09 0h571.85v169.761H325.12v-169.76z',
       }),
     )
-  }
-
-  getShape(): any {
-    const { model } = this.props
-    const { x, y, width, height, radius } = model
-    const style = model.getNodeStyle()
-    return h('g', {}, [
-      h('rect', {
-        x: x - width / 2,
-        y: y - height / 2,
-        rx: radius,
-        ry: radius,
-        width,
-        height,
-        ...style,
-      }),
-      this.getLabelShape(),
-    ])
   }
 }
 
