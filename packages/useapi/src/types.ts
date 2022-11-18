@@ -1,10 +1,21 @@
 import type { BaseEdgeModel, BaseNodeModel, GraphConfigData, LogicFlow } from '@logicflow/core'
 import type { DefineComponent, Ref, ShallowReactive } from 'vue'
 
+export type category = {
+  id: string
+  items: string[]
+  subCategories: category[]
+  label?: string
+  icon?: string
+  className?: string
+  properties?: Record<string, any>
+}
+
 export type NodeType = {
   type: string
   view: any
   model: any
+  category?: string
   text?: string
   icon?: string
   label?: string
@@ -17,6 +28,10 @@ export type EdgeType = {
   type: string
   view: any
   model: any
+  category?: string
+  icon?: string
+  label?: string
+  className?: string
 }
 
 export type Adapter = {
@@ -30,8 +45,8 @@ export type ModelType = {
   name: string
   label: string
   defaultEdgeType: string
-  nodeTypes: NodeType[]
-  edgeTypes?: EdgeType[]
+  topCategory: category
+  elementTypes: (NodeType | EdgeType) []
   theme?: any
   newData?: GraphData
   adapters?: Record<string, Adapter>

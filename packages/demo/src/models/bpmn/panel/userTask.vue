@@ -34,6 +34,6 @@ import { usePropertiesPanelData } from 'logicflow-useapi'
 import bpmnModel from 'logicflow-bpmn'
 import './style.css'
 
-const userTaskIcon = bpmnModel.nodeTypes.find(node => node.type === 'bpmn:userTask')?.icon
+const userTaskIcon = bpmnModel.elementTypes.find(node => node.type === 'bpmn:userTask')?.icon
 const data = usePropertiesPanelData()
 </script>

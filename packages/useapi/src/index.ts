@@ -210,11 +210,8 @@ function initLogicFlow(logicflowOptions: any, viewer: ViewerContext): void {
 
   viewer.lf?.register(ProcessNode)
 
-  modelType.nodeTypes.forEach((node) => {
-    viewer.lf?.register(node)
-  })
-  modelType.edgeTypes?.forEach((edge) => {
-    viewer.lf?.register(edge)
+  modelType.elementTypes.forEach((element) => {
+    viewer.lf?.register(element)
   })
   viewer.lf?.setDefaultEdgeType(modelType.defaultEdgeType)
   viewer.lf?.setZoomMaxSize(5)
@@ -307,19 +304,29 @@ export function useModeler(model: ModelType, propertiesPanelConfig: PropertiesPa
 
   const _initModeler = () => {
     _ctx.lf = modeler.lf
-    modeler.lf?.setPatternItems([
-      {
-        label: '框选',
-        icon: selectIcon,
-        callback: () => {
-          modeler.lf?.extension.selectionSelect.openSelectionSelect()
-          modeler.lf?.once('selection:selected', () => {
-            modeler.lf?.extension.selectionSelect.closeSelectionSelect()
-          })
-        },
-      },
-      ...model.nodeTypes,
-    ])
+    const categories = model.topCategory.subCategories
+    if (categories.length === 0) {
+      const items = model.topCategory.items
+      if (items.length > 0) {
+        modeler.lf?.setPatternItems([
+          {
+            label: '框选',
+            icon: selectIcon,
+            callback: () => {
+              modeler.lf?.extension.selectionSelect.openSelectionSelect()
+              modeler.lf?.once('selection:selected', () => {
+                modeler.lf?.extension.selectionSelect.closeSelectionSelect()
+              })
+            },
+          },
+          ...items.map((item) => {
+            return model.elementTypes.find((element) => {
+              return element.type === item
+            })
+          }),
+        ])
+      }
+    }
 
     modeler.lf?.on('graph:rendered', () => {
       // 加载新数据后重置 Modified 标识

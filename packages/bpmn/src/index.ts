@@ -34,7 +34,21 @@ export default <ModelType>{
       },
     },
   },
-  nodeTypes: [
+  topCategory: {
+    id: 'top',
+    items: [
+      'bpmn:startEvent',
+      'bpmn:endEvent',
+      'bpmn:userTask',
+      'bpmn:businessRuleTask',
+      'bpmn:serviceTask',
+      'bpmn:parallelGateway',
+      'bpmn:exclusiveGateway',
+      'bpmn:inclusiveGateway',
+    ],
+    subCategories: [],
+  },
+  elementTypes: [
     {
       ...StartEvent,
       label: '开始',
@@ -78,8 +92,6 @@ export default <ModelType>{
       label: '包含网关',
       icon: inclusiveGatewayIcon,
     },
-  ],
-  edgeTypes: [
     SequenceFlow,
   ],
   newData,
