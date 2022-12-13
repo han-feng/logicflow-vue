@@ -1,6 +1,16 @@
 import type { BaseEdgeModel, BaseNodeModel, GraphConfigData, LogicFlow } from '@logicflow/core'
 import type { DefineComponent, Ref, ShallowReactive } from 'vue'
 
+// type PatternItem = {
+//   type?: string
+//   text?: string
+//   label?: string
+//   icon?: string
+//   className?: string
+//   properties?: object
+//   callback?: () => void
+// }
+
 export type category = {
   id: string
   items: string[]
