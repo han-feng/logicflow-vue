@@ -7,7 +7,7 @@ class ParallelGatewayModel extends GatewayModel {
 
 class ParallelGatewayView extends GatewayView {
   static extendKey = 'ParallelGatewayNode'
-  getIcon(): any {
+  getIcon(): h.JSX.Element | undefined {
     const { model } = this.props
     const style = model.getNodeStyle()
     return h(

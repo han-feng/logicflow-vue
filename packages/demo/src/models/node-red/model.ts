@@ -12,7 +12,19 @@ export default <ModelType>{
   name: 'nodeRed',
   label: 'NodeRed 模型',
   defaultEdgeType: FlowLink.type,
-  nodeTypes: [
+  topCategory: {
+    id: 'top',
+    items: [
+      'start-node',
+      'function-node',
+      'switch-node',
+      'swap-node',
+      'fetch-node',
+      'delay-node',
+    ],
+    subCategories: [],
+  },
+  elementTypes: [
     StartNode,
     FunctionNode,
     SwitchNode,
@@ -20,11 +32,12 @@ export default <ModelType>{
     FetchNode,
     DelayNode,
     // VueHtmlNode
-  ],
-  edgeTypes: [
     FlowLink,
   ],
   newData: {
+    id: 'nr001',
+    text: 'NodeRed 实例模型',
+    properties: {},
     nodes: [
       {
         id: 'node_1',

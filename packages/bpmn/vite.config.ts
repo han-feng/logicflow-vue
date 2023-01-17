@@ -19,7 +19,9 @@ export default defineConfig({
       brotliSize: true,
       filename: './node_modules/.cache/visualizer/stats.html',
     }) as PluginOption,
-    image() as PluginOption,
+    image({
+      limit: -1, // 不限制大小，全部内联
+    }),
   ],
   build: {
     lib: {

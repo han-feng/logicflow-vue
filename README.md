@@ -7,6 +7,7 @@
 
 ## 子项目
 * [useapi](./packages/useapi/README.md)
+* [bpmn](./packages/bpmn/README.md)
 * [demo](./packages/demo/README.md)
 
 ## 开发环境：

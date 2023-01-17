@@ -62,7 +62,6 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     server: {
-      open: true,
       host: '127.0.0.1',
       port: 4173,
       strictPort: true,

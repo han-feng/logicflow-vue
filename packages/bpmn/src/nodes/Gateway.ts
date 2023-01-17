@@ -63,10 +63,11 @@ class GatewayModel extends PolygonNodeModel {
 
 class GatewayView extends PolygonNode {
   static extendKey = 'GatewayNode'
-  getIcon(): any {
+  getIcon(): h.JSX.Element | undefined {
+    return undefined
   }
 
-  getShape(): any {
+  getShape(): h.JSX.Element {
     const { model } = this.props
     const { x, y, width, height, points } = model
     const style = model.getNodeStyle()

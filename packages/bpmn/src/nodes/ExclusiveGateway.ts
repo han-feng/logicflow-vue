@@ -7,7 +7,7 @@ class ExclusiveGatewayModel extends GatewayModel {
 
 class ExclusiveGatewayView extends GatewayView {
   static extendKey = 'ExclusiveGatewayNode'
-  getIcon(): any {
+  getIcon(): h.JSX.Element | undefined {
     const { model } = this.props
     const style = model.getNodeStyle()
     return h(

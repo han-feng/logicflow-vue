@@ -2,7 +2,7 @@ import StartEvent from '@logicflow/extension/es/bpmn/events/StartEvent'
 import SequenceFlow from '@logicflow/extension/es/bpmn/flow/SequenceFlow'
 import type { GraphData, ModelType } from 'logicflow-useapi'
 import { adapterXmlIn, adapterXmlOut } from './adapter'
-import { endIcon, exclusiveGatewayIcon, inclusiveGatewayIcon, parallelGatewayIcon, serviceTaskIcon, startIcon, userTaskIcon } from './icons'
+import { endIcon, exclusiveGatewayIcon, inclusiveGatewayIcon, parallelGatewayIcon, ruleTaskIcon, serviceTaskIcon, startIcon, userTaskIcon } from './icons'
 import newData from './newdata.json'
 import EndEvent from './nodes/EndEvent'
 import ExclusiveGateway from './nodes/ExclusiveGateway'
@@ -10,6 +10,7 @@ import InclusiveGateway from './nodes/InclusiveGateway'
 import ParallelGateway from './nodes/ParallelGateway'
 import ServiceTask from './nodes/ServiceTask'
 import UserTask from './nodes/UserTask'
+import RuleTask from './nodes/RuleTask'
 import { theme } from './theme'
 
 const key = 'bpmn'
@@ -33,7 +34,21 @@ export default <ModelType>{
       },
     },
   },
-  nodeTypes: [
+  topCategory: {
+    id: 'top',
+    items: [
+      'bpmn:startEvent',
+      'bpmn:endEvent',
+      'bpmn:userTask',
+      'bpmn:businessRuleTask',
+      'bpmn:serviceTask',
+      'bpmn:parallelGateway',
+      'bpmn:exclusiveGateway',
+      'bpmn:inclusiveGateway',
+    ],
+    subCategories: [],
+  },
+  elementTypes: [
     {
       ...StartEvent,
       label: '开始',
@@ -50,8 +65,13 @@ export default <ModelType>{
       icon: userTaskIcon,
     },
     {
+      ...RuleTask,
+      label: '规则执行',
+      icon: ruleTaskIcon,
+    },
+    {
       ...ServiceTask,
-      label: '系统任务',
+      label: '服务调用',
       icon: serviceTaskIcon,
     },
     {
@@ -72,8 +92,6 @@ export default <ModelType>{
       label: '包含网关',
       icon: inclusiveGatewayIcon,
     },
-  ],
-  edgeTypes: [
     SequenceFlow,
   ],
   newData,

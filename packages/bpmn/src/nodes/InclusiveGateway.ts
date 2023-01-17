@@ -7,7 +7,7 @@ class InclusiveGatewayModel extends GatewayModel {
 
 class InclusiveGatewayView extends GatewayView {
   static extendKey = 'InclusiveGatewayNode'
-  getIcon(): any {
+  getIcon(): h.JSX.Element | undefined {
     const { model } = this.props
     const style = model.getNodeStyle()
     return h(
