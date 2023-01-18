@@ -30,12 +30,12 @@ jobs:
           pnpm all
           touch ./packages/demo/dist/.nojekyll
 
-      - name: 🎥 End to end tests
-        uses: cypress-io/github-action@v4
+      - name: ⚗️ End to end tests
+        uses: cypress-io/github-action@v5
         continue-on-error: true
         with:
           build: echo 🏭
-          start: pnpm -F logicflow-vue-demo preview
+          start: pnpm -F logicflow-vue-demo preview:ci
           command: pnpm -F logicflow-vue-demo cy:run
 
       - name: 🚀 Deploy pages
