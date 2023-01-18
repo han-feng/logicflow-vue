@@ -34,9 +34,11 @@ jobs:
         uses: cypress-io/github-action@v5
         continue-on-error: true
         with:
+          working-directory: packages/demo
+          install: false
           build: echo 🏭
-          start: pnpm -F logicflow-vue-demo preview:ci
-          command: pnpm -F logicflow-vue-demo cy:run
+          start: pnpm preview:ci
+          command: pnpm cy:run
 
       - name: 🚀 Deploy pages
         uses: JamesIves/github-pages-deploy-action@v4
