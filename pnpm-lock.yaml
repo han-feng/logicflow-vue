@@ -22,7 +22,7 @@ importers:
       '@types/node': ^18.11.18
       logicflow-useapi: workspace:^
       resize-detector: ^0.3.0
-      rimraf: ^4.1.0
+      rimraf: ^4.1.1
       rollup: ^3.10.0
       rollup-plugin-visualizer: ^5.9.0
       typescript: ^4.9.4
@@ -39,7 +39,7 @@ importers:
     devDependencies:
       '@rollup/pluginutils': 5.0.2_rollup@3.10.0
       '@types/node': 18.11.18
-      rimraf: 4.1.0
+      rimraf: 4.1.1
       rollup: 3.10.0
       rollup-plugin-visualizer: 5.9.0_rollup@3.10.0
       typescript: 4.9.4
@@ -66,7 +66,7 @@ importers:
       logicflow-bpmn: workspace:^
       logicflow-useapi: workspace:^
       resize-detector: ^0.3.0
-      rimraf: ^4.1.0
+      rimraf: ^4.1.1
       rollup: ^3.10.0
       rollup-plugin-visualizer: ^5.9.0
       splitpanes: ^3.1.5
@@ -101,7 +101,7 @@ importers:
       '@types/node': 18.11.18
       '@types/splitpanes': 2.2.1
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.4+vue@3.2.45
-      rimraf: 4.1.0
+      rimraf: 4.1.1
       rollup: 3.10.0
       rollup-plugin-visualizer: 5.9.0_rollup@3.10.0
       typescript: 4.9.4
@@ -118,7 +118,7 @@ importers:
       '@types/node': ^18.11.18
       lodash-es: ^4.17.21
       resize-detector: ^0.3.0
-      rimraf: ^4.1.0
+      rimraf: ^4.1.1
       rollup: ^3.10.0
       rollup-plugin-visualizer: ^5.9.0
       typescript: ^4.9.4
@@ -134,7 +134,7 @@ importers:
     devDependencies:
       '@types/lodash-es': 4.17.6
       '@types/node': 18.11.18
-      rimraf: 4.1.0
+      rimraf: 4.1.1
       rollup: 3.10.0
       rollup-plugin-visualizer: 5.9.0_rollup@3.10.0
       typescript: 4.9.4
@@ -4635,8 +4635,8 @@ packages:
     dependencies:
       glob: 7.2.3
 
-  /rimraf/4.1.0:
-    resolution: {integrity: sha512-ZJdkUR5/dRrRJHdcSKJLrpRn6tVjl9ALxd4yrTCxFsMpjQNzwHF6GLqMsuEzEYIXxHlFPDSk21Vr8VPuFBEz0g==}
+  /rimraf/4.1.1:
+    resolution: {integrity: sha512-Z4Y81w8atcvaJuJuBB88VpADRH66okZAuEm+Jtaufa+s7rZmIz+Hik2G53kGaNytE7lsfXyWktTmfVz0H9xuDg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
