@@ -13,14 +13,14 @@
     "preview": "pnpm -F logicflow-vue-demo preview",
     "test": "pnpm -r test",
     "clean": "pnpm -r clean",
-    "clean:all": "pnpm --package=rimraf -s dlx rimraf pnpm-lock.yaml **/dist **/node_modules",
+    "clean:all": "pnpm --package=rimraf -s dlx rimraf -g pnpm-lock.yaml **/dist **/node_modules",
     "reinstall": "pnpm clean:all && pnpm i",
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.34.1",
-    "eslint": "^8.32.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "typescript": "^4.9.4"
+    "@antfu/eslint-config": "^0.38.0",
+    "eslint": "^8.37.0",
+    "eslint-plugin-cypress": "^2.13.2",
+    "typescript": "^5.0.2"
   }
 }
