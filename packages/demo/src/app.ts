@@ -1,6 +1,6 @@
 import type { Component, ComputedOptions, MethodOptions } from 'vue'
 import { createApp } from 'vue'
-import { message } from 'ant-design-vue'
+import message from 'ant-design-vue/es/message'
 
 message.config({
   duration: 5,

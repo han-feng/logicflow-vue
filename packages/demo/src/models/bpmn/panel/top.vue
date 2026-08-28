@@ -10,7 +10,7 @@
           <a-textarea v-model:value="data.text" auto-size />
         </a-form-item>
         <a-form-item label="描述" name="description">
-          <a-textarea v-model:value="data.properties.discription" auto-size />
+          <a-textarea v-model:value="data.properties.description" auto-size />
         </a-form-item>
       </a-form>
     </a-tab-pane>

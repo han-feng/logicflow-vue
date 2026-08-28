@@ -1,3 +1,4 @@
+import 'ant-design-vue/dist/reset.css'
 import startApp from './app'
 import App from './App.vue'
 

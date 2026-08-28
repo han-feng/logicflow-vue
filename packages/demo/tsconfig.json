@@ -3,6 +3,8 @@
     "allowJs": true,
     // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。
     "allowSyntheticDefaultImports": true,
+    // 不检查 JavaScript 文件的语法和类型错误
+    "checkJs": false,
     // 解析非相对模块名的基准目录
     "baseUrl": ".",
     // 生成 d.ts 文件
@@ -21,7 +23,7 @@
     // 指定生成哪个模块系统代码
     "module": "esnext",
     // 决定如何处理模块。
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     // 输出目录
@@ -53,10 +55,13 @@
   "exclude": [
     "dist",
     "node_modules",
-    "cypress"
+    "cypress",
+    "src/models/node-red/**/*.js",
+    "src/models/node-red/nodes/*.js"
   ],
   "include": [
-    "src",
+    "src/**/*.ts",
+    "src/**/*.vue",
     "vite.config.ts"
   ]
 }

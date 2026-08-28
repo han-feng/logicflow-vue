@@ -135,7 +135,7 @@ export default <ModelType>{
       },
     ],
   },
-  init(lf) {
+  init(lf: any) {
     lf.on('node-red:start', () => {
       // TODO: 让流程跑起来
       console.log('我要开始执行流程了')

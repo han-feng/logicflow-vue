@@ -1,8 +1,8 @@
 {
   "prettier.enable": false,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": false,
-    "source.fixAll.eslint": true
+    "source.organizeImports": "never",
+    "source.fixAll.eslint": "explicit"
   },
   "files.associations": {
     "*.css": "postcss"

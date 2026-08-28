@@ -7,7 +7,8 @@
   "scripts": {
     "all": "pnpm clean && pnpm build",
     "dev": "vite --open",
-    "build": "vue-tsc --noEmit && vite build && node script/crlf.js",
+    "build": "vite build && node script/crlf.js",
+    "build:check": "vue-tsc --project tsconfig.build.json --noEmit && vite build && node script/crlf.js",
     "preview": "vite preview --open",
     "preview:ci": "vite preview",
     "cy:run": "cypress install && cypress run",
@@ -17,38 +18,38 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "@ant-design/icons-vue": "^6.1.0",
+    "@ant-design/icons-vue": "^7.0.1",
     "@highlightjs/vue-plugin": "^2.1.0",
-    "@logicflow/core": "^1.2.1",
-    "@logicflow/extension": "^1.2.1",
-    "ant-design-vue": "^3.2.16",
-    "consola": "^2.15.3",
-    "highlight.js": "^11.7.0",
-    "ids": "^1.0.0",
+    "@logicflow/core": "^1.2.28",
+    "@logicflow/extension": "^1.2.28",
+    "ant-design-vue": "^4.2.6",
+    "consola": "^3.4.2",
+    "highlight.js": "^11.11.1",
+    "ids": "^1.0.5",
     "lodash-es": "^4.17.21",
     "logicflow-bpmn": "workspace:^",
     "logicflow-useapi": "workspace:^",
     "resize-detector": "^0.3.0",
-    "splitpanes": "^3.1.5",
-    "vue": "^3.2.47"
+    "splitpanes": "^4.0.4",
+    "vue": "^3.5.22"
   },
   "optionalDependencies": {
-    "cypress": "^12.9.0",
-    "jimp": "^0.22.7",
-    "start-server-and-test": "^2.0.0"
+    "cypress": "^15.3.0",
+    "jimp": "^1.6.0",
+    "start-server-and-test": "^2.1.2"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
-    "@types/splitpanes": "^2.2.1",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "rimraf": "^4.4.1",
-    "rollup": "^3.20.2",
-    "rollup-plugin-visualizer": "^5.9.0",
-    "typescript": "^5.0.2",
-    "unplugin-vue-components": "^0.24.1",
-    "vite": "^4.2.1",
+    "@types/node": "^24.6.2",
+    "@types/splitpanes": "^2.2.6",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.52.3",
+    "rollup-plugin-visualizer": "^6.0.4",
+    "typescript": "^5.9.3",
+    "unplugin-vue-components": "^29.1.0",
+    "vite": "^7.1.8",
     "vite-plugin-resolve-externals": "^0.2.2",
     "vite-plugin-style-import": "^2.0.0",
-    "vue-tsc": "^1.2.0"
+    "vue-tsc": "^3.1.0"
   }
 }

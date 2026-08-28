@@ -36,21 +36,21 @@
     "vue": ">=3.2.0"
   },
   "dependencies": {
-    "@logicflow/core": "^1.2.1",
-    "@logicflow/extension": "^1.2.1",
+    "@logicflow/core": "^1.2.28",
+    "@logicflow/extension": "^1.2.28",
     "logicflow-useapi": "workspace:^",
     "resize-detector": "^0.3.0",
-    "vue": "^3.2.47"
+    "vue": "^3.5.22"
   },
   "devDependencies": {
-    "@rollup/pluginutils": "^5.0.2",
-    "@types/node": "^18.15.11",
-    "rimraf": "^4.4.1",
-    "rollup": "^3.20.2",
-    "rollup-plugin-visualizer": "^5.9.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.2.1",
-    "vite-plugin-dts": "^2.1.0",
-    "vue-tsc": "^1.2.0"
+    "@rollup/pluginutils": "^5.3.0",
+    "@types/node": "^24.6.2",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.52.3",
+    "rollup-plugin-visualizer": "^6.0.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.8",
+    "vite-plugin-dts": "^4.5.4",
+    "vue-tsc": "^3.1.0"
   }
 }

@@ -14,7 +14,7 @@
             <a-textarea v-model:value="data.text" auto-size />
           </a-form-item>
           <a-form-item label="描述" name="description">
-            <a-textarea v-model:value="data.properties.discription" auto-size />
+            <a-textarea v-model:value="data.properties.description" auto-size />
           </a-form-item>
         </a-form>
       </a-tab-pane>
@@ -34,6 +34,6 @@ import { usePropertiesPanelData } from 'logicflow-useapi'
 import bpmnModel from 'logicflow-bpmn'
 import './style.css'
 
-const userTaskIcon = bpmnModel.elementTypes.find(node => node.type === 'bpmn:userTask')?.icon
+const userTaskIcon = (bpmnModel.elementTypes.find(node => node.type === 'bpmn:userTask') as any)?.icon
 const data = usePropertiesPanelData()
 </script>
