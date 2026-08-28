@@ -1,0 +1,30 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "cypress",
+    "src/models/node-red/**/*.js",
+    "src/models/node-red/nodes",
+    "src/models/node-red/nodes/*.js",
+    "src/models/node-red/edges/*.js",
+    "src/models/node-red/util.js"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "src/models/node-red/nodes/*.d.ts",
+    "src/models/node-red/*.d.ts",
+    "src/models/node-red/edges/*.d.ts",
+    "script/*.d.ts",
+    "src/types/**/*.d.ts"
+  ]
+}
